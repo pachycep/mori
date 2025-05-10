@@ -1,176 +1,42 @@
-export type Json =
-	| string
-	| number
-	| boolean
-	| null
-	| { [key: string]: Json | undefined }
-	| Json[];
+export type Customer = {
+  id: string
+  name: string
+  phone: string
+  grade: 'VIP' | '일반' | '신규'
+  memo?: string
+  total_spent: number
+  last_visit?: string // ISO 날짜 문자열
+}
 
-export type Database = {
-	public: {
-		Tables: {
-			bookings: {
-				Row: {
-					created_at: string | null;
-					customer: string | null;
-					date: string;
-					id: string;
-					image_urls: string[] | null;
-					is_public: boolean | null;
-					memo: string | null;
-					service: string;
-					user_id: string;
-				};
-				Insert: {
-					created_at?: string | null;
-					customer?: string | null;
-					date: string;
-					id?: string;
-					image_urls?: string[] | null;
-					is_public?: boolean | null;
-					memo?: string | null;
-					service: string;
-					user_id: string;
-				};
-				Update: {
-					created_at?: string | null;
-					customer?: string | null;
-					date?: string;
-					id?: string;
-					image_urls?: string[] | null;
-					is_public?: boolean | null;
-					memo?: string | null;
-					service?: string;
-					user_id?: string;
-				};
-				Relationships: [];
-			};
-		};
-		Views: {
-			[_ in never]: never;
-		};
-		Functions: {
-			[_ in never]: never;
-		};
-		Enums: {
-			[_ in never]: never;
-		};
-		CompositeTypes: {
-			[_ in never]: never;
-		};
-	};
-};
+export type NewCustomer = Partial<
+  Pick<Customer, 'id' | 'memo' | 'last_visit'>
+> &
+  Omit<Customer, 'id' | 'memo' | 'last_visit'>
 
-type DefaultSchema = Database[Extract<keyof Database, "public">];
+export type Reservation = {
+  id: string
+  date: string
+  time: string
+  customer_id: string
+  customer_name: string
+  notes?: string
+  service_id: string // 시술 정보
+}
 
-export type Tables<
-	DefaultSchemaTableNameOrOptions extends
-		| keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-		| { schema: keyof Database },
-	TableName extends DefaultSchemaTableNameOrOptions extends {
-		schema: keyof Database;
-	}
-		? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-				Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-		: never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-	? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-			Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-			Row: infer R;
-		}
-		? R
-		: never
-	: DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-				DefaultSchema["Views"])
-		? (DefaultSchema["Tables"] &
-				DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-				Row: infer R;
-			}
-			? R
-			: never
-		: never;
+export type NewReservation = Partial<Pick<Reservation, 'id' | 'notes'>> &
+  Omit<Reservation, 'id' | 'notes'>
 
-export type TablesInsert<
-	DefaultSchemaTableNameOrOptions extends
-		| keyof DefaultSchema["Tables"]
-		| { schema: keyof Database },
-	TableName extends DefaultSchemaTableNameOrOptions extends {
-		schema: keyof Database;
-	}
-		? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-		: never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-	? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-			Insert: infer I;
-		}
-		? I
-		: never
-	: DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-		? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-				Insert: infer I;
-			}
-			? I
-			: never
-		: never;
+export type Treatment = {
+  id: string
+  reservation_id: string
+  name: string
+  price: number
+  memo?: string
+  image_urls?: string[]
+  customer_id: string
+}
 
-export type TablesUpdate<
-	DefaultSchemaTableNameOrOptions extends
-		| keyof DefaultSchema["Tables"]
-		| { schema: keyof Database },
-	TableName extends DefaultSchemaTableNameOrOptions extends {
-		schema: keyof Database;
-	}
-		? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-		: never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-	? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-			Update: infer U;
-		}
-		? U
-		: never
-	: DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-		? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-				Update: infer U;
-			}
-			? U
-			: never
-		: never;
-
-export type Enums<
-	DefaultSchemaEnumNameOrOptions extends
-		| keyof DefaultSchema["Enums"]
-		| { schema: keyof Database },
-	EnumName extends DefaultSchemaEnumNameOrOptions extends {
-		schema: keyof Database;
-	}
-		? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-		: never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-	? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-	: DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-		? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-		: never;
-
-export type CompositeTypes<
-	PublicCompositeTypeNameOrOptions extends
-		| keyof DefaultSchema["CompositeTypes"]
-		| { schema: keyof Database },
-	CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-		schema: keyof Database;
-	}
-		? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-		: never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-	? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-	: PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-		? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-		: never;
-
-export const Constants = {
-	public: {
-		Enums: {},
-	},
-} as const;
-
-export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
-export type NewBooking = Database["public"]["Tables"]["bookings"]["Insert"];
+export type NewTreatment = Partial<
+  Pick<Treatment, 'id' | 'memo' | 'image_urls'>
+> &
+  Omit<Treatment, 'id' | 'memo' | 'image_urls'>

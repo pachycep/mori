@@ -1,6 +1,6 @@
 import { NewRecordForm } from '@/ui/shared/components/NewRecordForm'
 import type { Booking } from '@/types/supabase'
-import { getSupabaseServerClient } from '@/ui/shared/utils/supabase'
+import { getSupabaseServerClient } from '@/manager/client/supabase'
 import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 
