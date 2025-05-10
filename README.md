@@ -40,6 +40,7 @@ pnpm dev
   - 담당 고객 관리
 
 ## 프로젝트 구조
+```
 src/
 ├── ui/              # client 
 ├── manager/         # server
@@ -47,3 +48,4 @@ src/
 │   ├── service/     # 비즈니스 로직 처리
 │   └── repository/  # 데이터베이스 접근 계층
 └── types/           # 타입 정의
+```
