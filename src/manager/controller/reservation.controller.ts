@@ -21,12 +21,10 @@ export const createReservation = createServerFn({
   method: 'POST',
 })
   .validator(async (data) => {
-    console.log('validator', data)
     if (!(data instanceof FormData)) {
       throw new Error('Invalid form data')
     }
     const validatedData = await reservationValidate(data)
-    console.log(data)
     return validatedData
   })
   .handler(async ({ data }) => {

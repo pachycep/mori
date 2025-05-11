@@ -51,12 +51,6 @@ function NewReservationPage() {
 
   const form = useForm({
     ...reservationFormOpts,
-    onSubmit: async (data) => {
-      console.log(data)
-    },
-    onSubmitInvalid: (errors) => {
-      console.log(errors)
-    },
   })
 
   const formErrors = useStore(form.store, (formState) => formState.errors)
