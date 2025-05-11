@@ -21,10 +21,7 @@ import { Route as TreatmentsIdImport } from './routes/treatments/$id'
 import { Route as ReservationNewImport } from './routes/reservation/new'
 import { Route as ReservationIdImport } from './routes/reservation/$id'
 import { Route as CustomersIdImport } from './routes/customers/$id'
-import { Route as AuthedPostsImport } from './routes/_authed/posts'
-import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
 import { Route as AuthedRecordNewImport } from './routes/_authed/record/new'
-import { Route as AuthedPostsPostIdImport } from './routes/_authed/posts.$postId'
 
 // Create/Update Routes
 
@@ -87,28 +84,10 @@ const CustomersIdRoute = CustomersIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthedPostsRoute = AuthedPostsImport.update({
-  id: '/posts',
-  path: '/posts',
-  getParentRoute: () => AuthedRoute,
-} as any)
-
-const AuthedPostsIndexRoute = AuthedPostsIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthedPostsRoute,
-} as any)
-
 const AuthedRecordNewRoute = AuthedRecordNewImport.update({
   id: '/record/new',
   path: '/record/new',
   getParentRoute: () => AuthedRoute,
-} as any)
-
-const AuthedPostsPostIdRoute = AuthedPostsPostIdImport.update({
-  id: '/$postId',
-  path: '/$postId',
-  getParentRoute: () => AuthedPostsRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -150,13 +129,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/_authed/posts': {
-      id: '/_authed/posts'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof AuthedPostsImport
-      parentRoute: typeof AuthedImport
-    }
     '/customers/$id': {
       id: '/customers/$id'
       path: '/customers/$id'
@@ -192,13 +164,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReservationIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_authed/posts/$postId': {
-      id: '/_authed/posts/$postId'
-      path: '/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof AuthedPostsPostIdImport
-      parentRoute: typeof AuthedPostsImport
-    }
     '/_authed/record/new': {
       id: '/_authed/record/new'
       path: '/record/new'
@@ -206,39 +171,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedRecordNewImport
       parentRoute: typeof AuthedImport
     }
-    '/_authed/posts/': {
-      id: '/_authed/posts/'
-      path: '/'
-      fullPath: '/posts/'
-      preLoaderRoute: typeof AuthedPostsIndexImport
-      parentRoute: typeof AuthedPostsImport
-    }
   }
 }
 
 // Create and export the route tree
 
-interface AuthedPostsRouteChildren {
-  AuthedPostsPostIdRoute: typeof AuthedPostsPostIdRoute
-  AuthedPostsIndexRoute: typeof AuthedPostsIndexRoute
-}
-
-const AuthedPostsRouteChildren: AuthedPostsRouteChildren = {
-  AuthedPostsPostIdRoute: AuthedPostsPostIdRoute,
-  AuthedPostsIndexRoute: AuthedPostsIndexRoute,
-}
-
-const AuthedPostsRouteWithChildren = AuthedPostsRoute._addFileChildren(
-  AuthedPostsRouteChildren,
-)
-
 interface AuthedRouteChildren {
-  AuthedPostsRoute: typeof AuthedPostsRouteWithChildren
   AuthedRecordNewRoute: typeof AuthedRecordNewRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedPostsRoute: AuthedPostsRouteWithChildren,
   AuthedRecordNewRoute: AuthedRecordNewRoute,
 }
 
@@ -251,15 +193,12 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
-  '/posts': typeof AuthedPostsRouteWithChildren
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation': typeof ReservationIndexRoute
-  '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/record/new': typeof AuthedRecordNewRoute
-  '/posts/': typeof AuthedPostsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -273,9 +212,7 @@ export interface FileRoutesByTo {
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation': typeof ReservationIndexRoute
-  '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/record/new': typeof AuthedRecordNewRoute
-  '/posts': typeof AuthedPostsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -285,15 +222,12 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
-  '/_authed/posts': typeof AuthedPostsRouteWithChildren
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation/': typeof ReservationIndexRoute
-  '/_authed/posts/$postId': typeof AuthedPostsPostIdRoute
   '/_authed/record/new': typeof AuthedRecordNewRoute
-  '/_authed/posts/': typeof AuthedPostsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -304,15 +238,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
-    | '/posts'
     | '/customers/$id'
     | '/reservation/$id'
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation'
-    | '/posts/$postId'
     | '/record/new'
-    | '/posts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -325,9 +256,7 @@ export interface FileRouteTypes {
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation'
-    | '/posts/$postId'
     | '/record/new'
-    | '/posts'
   id:
     | '__root__'
     | '/'
@@ -335,15 +264,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
-    | '/_authed/posts'
     | '/customers/$id'
     | '/reservation/$id'
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation/'
-    | '/_authed/posts/$postId'
     | '/_authed/record/new'
-    | '/_authed/posts/'
   fileRoutesById: FileRoutesById
 }
 
@@ -401,7 +327,6 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/posts",
         "/_authed/record/new"
       ]
     },
@@ -413,14 +338,6 @@ export const routeTree = rootRoute
     },
     "/signup": {
       "filePath": "signup.tsx"
-    },
-    "/_authed/posts": {
-      "filePath": "_authed/posts.tsx",
-      "parent": "/_authed",
-      "children": [
-        "/_authed/posts/$postId",
-        "/_authed/posts/"
-      ]
     },
     "/customers/$id": {
       "filePath": "customers/$id.tsx"
@@ -437,17 +354,9 @@ export const routeTree = rootRoute
     "/reservation/": {
       "filePath": "reservation/index.tsx"
     },
-    "/_authed/posts/$postId": {
-      "filePath": "_authed/posts.$postId.tsx",
-      "parent": "/_authed/posts"
-    },
     "/_authed/record/new": {
       "filePath": "_authed/record/new.tsx",
       "parent": "/_authed"
-    },
-    "/_authed/posts/": {
-      "filePath": "_authed/posts.index.tsx",
-      "parent": "/_authed/posts"
     }
   }
 }
