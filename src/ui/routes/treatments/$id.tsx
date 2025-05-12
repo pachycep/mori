@@ -1,11 +1,10 @@
 // app/routes/treatments/$id.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { getTreatmentList } from '@/manager/controller/treatment.controller'
+import { getTreatmentById } from '@/manager/controller/treatment.controller'
 
 export const Route = createFileRoute('/treatments/$id')({
   loader: async ({ params }) => {
-    const treatments = await getTreatmentList()
-    const treatment = treatments.find((t) => t.id === params.id)
+    const treatment = await getTreatmentById({ data: params.id })
 
     if (!treatment) {
       throw new Error('시술 정보를 찾을 수 없습니다')

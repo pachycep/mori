@@ -12,6 +12,7 @@ import {
   CalendarBody,
   CalendarItem,
 } from '@/ui/shared/components/calendar/index'
+import { Button } from '@/ui/shared/components/button'
 
 export const Route = createFileRoute('/reservation/')({
   loader: async () => ({
@@ -26,14 +27,27 @@ function ReservationListPage() {
   return (
     <div className="p-4 space-y-4">
       <h2 className="text-lg font-semibold">예약 목록</h2>
-
-      <ul className="divide-y divide-gray-200 rounded-md border border-gray-300">
-        {reservations.map((reservation) => (
-          <ReservationItem key={reservation.id} reservation={reservation} />
-        ))}
-      </ul>
+      <CreateReservationButton />
+      <ReservationList reservations={reservations} />
       <ReservationCalendar />
     </div>
+  )
+}
+function CreateReservationButton() {
+  return (
+    <Link to="/reservation/new">
+      <Button variant="secondary">예약 추가</Button>
+    </Link>
+  )
+}
+
+function ReservationList({ reservations }: { reservations: Reservation[] }) {
+  return (
+    <ul className="divide-y divide-gray-200 rounded-md border border-gray-300">
+      {reservations.map((reservation) => (
+        <ReservationItem key={reservation.id} reservation={reservation} />
+      ))}
+    </ul>
   )
 }
 

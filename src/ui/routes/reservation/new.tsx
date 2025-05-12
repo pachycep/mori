@@ -1,12 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  type AnyFieldApi,
-  formOptions,
-  useForm,
-  useStore,
-} from '@tanstack/react-form'
+import { type AnyFieldApi, formOptions, useForm } from '@tanstack/react-form'
 import { Label } from '@/ui/shared/components/label'
-import { Input } from '@/ui/shared/components/input'
 import { Suspense } from 'react'
 import {
   SelectTrigger,
@@ -43,6 +37,8 @@ export const reservationFormOpts = formOptions({
     time: '',
     customer_id: '',
     notes: '',
+    customer_name: '',
+    service_id: '',
   },
 })
 
@@ -51,24 +47,24 @@ function NewReservationPage() {
 
   const form = useForm({
     ...reservationFormOpts,
+    onSubmit: async ({ value }) => {
+      await createReservation({ data: value })
+    },
   })
-
-  const formErrors = useStore(form.store, (formState) => formState.errors)
 
   return (
     <form
-      action={createReservation.url}
-      method="post"
-      encType={'multipart/form-data'}
+      onSubmit={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        form.handleSubmit()
+      }}
     >
-      {formErrors.map((error) => (
-        <p key={error as never as string}>{error}</p>
-      ))}
-
       <form.Field
         name="date"
         validators={{
           onChange: zodRequiredString(),
+          onSubmit: zodRequiredString(),
         }}
       >
         {(field) => {
@@ -87,9 +83,7 @@ function NewReservationPage() {
                 placeholder="날짜를 선택하세요"
                 disabledDates={(date) => date < new Date()}
               />
-              {field.state.meta.errors.map((error) => (
-                <p key={error?.message}>{error?.message}</p>
-              ))}
+              <FieldInfo field={field} />
             </>
           )
         }}
@@ -99,7 +93,7 @@ function NewReservationPage() {
         name="time"
         validators={{
           onChange: zodRequiredString(),
-          onSubmitAsync: zodRequiredString(),
+          onSubmit: zodRequiredString(),
         }}
       >
         {(field) => {
@@ -125,9 +119,7 @@ function NewReservationPage() {
                   <SelectItem value="17:00">17:00</SelectItem>
                 </SelectContent>
               </Select>
-              {field.state.meta.errors.map((error) => (
-                <p key={error?.message}>{error?.message}</p>
-              ))}
+              <FieldInfo field={field} />
             </>
           )
         }}
@@ -137,7 +129,7 @@ function NewReservationPage() {
         name="customer_id"
         validators={{
           onChange: zodRequiredString(),
-          onSubmitAsync: zodRequiredString(),
+          onSubmit: zodRequiredString(),
         }}
       >
         {(field) => {
@@ -147,7 +139,13 @@ function NewReservationPage() {
               <Select
                 name={field.name}
                 value={field.state.value}
-                onValueChange={(value) => field.handleChange(value)}
+                onValueChange={(value) => {
+                  field.handleChange(value)
+                  const selectedCustomer = customers.find((c) => c.id === value)
+                  if (selectedCustomer) {
+                    form.setFieldValue('customer_name', selectedCustomer.name)
+                  }
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="고객 선택" />
@@ -160,9 +158,37 @@ function NewReservationPage() {
                   ))}
                 </SelectContent>
               </Select>
-              {field.state.meta.errors.map((error) => (
-                <p key={error as never as string}>{error}</p>
-              ))}
+              <FieldInfo field={field} />
+            </>
+          )
+        }}
+      </form.Field>
+
+      <form.Field
+        name="service_id"
+        validators={{
+          onChange: zodRequiredString(),
+          onSubmit: zodRequiredString(),
+        }}
+      >
+        {(field) => {
+          return (
+            <>
+              <Label>시술 선택</Label>
+              <Select
+                name={field.name}
+                value={field.state.value}
+                onValueChange={(value) => field.handleChange(value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="시술 선택" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="service1">시술 1</SelectItem>
+                  <SelectItem value="service2">시술 2</SelectItem>
+                </SelectContent>
+              </Select>
+              <FieldInfo field={field} />
             </>
           )
         }}
@@ -172,7 +198,7 @@ function NewReservationPage() {
         name="notes"
         validators={{
           onChange: zodRequiredString(),
-          onSubmitAsync: zodRequiredString(),
+          onSubmit: zodRequiredString(),
         }}
       >
         {(field) => {
