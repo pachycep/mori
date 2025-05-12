@@ -218,17 +218,13 @@ function NewReservationPage() {
       </form.Field>
 
       <form.Subscribe
-        selector={({ canSubmit, isSubmitting, isDirty }) => [
-          canSubmit,
-          isSubmitting,
-          isDirty,
-        ]}
+        selector={({ canSubmit, isSubmitting }) => [canSubmit, isSubmitting]}
       >
-        {([canSubmit, isSubmitting, isDirty]) => (
+        {([canSubmit, isSubmitting]) => (
           <Button
             type="submit"
-            disabled={!canSubmit || !isDirty || isSubmitting}
-            aria-disabled={!canSubmit || !isDirty || isSubmitting}
+            disabled={!canSubmit}
+            aria-disabled={!canSubmit}
           >
             {isSubmitting ? '...' : 'Submit'}
           </Button>
