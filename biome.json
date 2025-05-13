@@ -28,7 +28,8 @@
       "recommended": true,
       "correctness": {
         "noUnusedImports": "error",
-        "useExhaustiveDependencies": "warn"
+        "useExhaustiveDependencies": "warn",
+        "noChildrenProp": "off"
       },
       "style": {
         "noNonNullAssertion": "warn",
