@@ -106,6 +106,10 @@ function CalendarField({
   )
 }
 
+function TimeSlotField() {
+  const field = useFieldContext<string>()
+}
+
 export function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext()
   return (

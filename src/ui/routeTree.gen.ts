@@ -19,6 +19,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as ReservationIndexImport } from './routes/reservation/index'
 import { Route as TreatmentsIdImport } from './routes/treatments/$id'
 import { Route as ReservationNewImport } from './routes/reservation/new'
+import { Route as ReservationDImport } from './routes/reservation/d'
 import { Route as ReservationIdImport } from './routes/reservation/$id'
 import { Route as CustomersIdImport } from './routes/customers/$id'
 import { Route as AuthedRecordNewImport } from './routes/_authed/record/new'
@@ -69,6 +70,12 @@ const TreatmentsIdRoute = TreatmentsIdImport.update({
 const ReservationNewRoute = ReservationNewImport.update({
   id: '/reservation/new',
   path: '/reservation/new',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ReservationDRoute = ReservationDImport.update({
+  id: '/reservation/d',
+  path: '/reservation/d',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -143,6 +150,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReservationIdImport
       parentRoute: typeof rootRoute
     }
+    '/reservation/d': {
+      id: '/reservation/d'
+      path: '/reservation/d'
+      fullPath: '/reservation/d'
+      preLoaderRoute: typeof ReservationDImport
+      parentRoute: typeof rootRoute
+    }
     '/reservation/new': {
       id: '/reservation/new'
       path: '/reservation/new'
@@ -195,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
+  '/reservation/d': typeof ReservationDRoute
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation': typeof ReservationIndexRoute
@@ -209,6 +224,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
+  '/reservation/d': typeof ReservationDRoute
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation': typeof ReservationIndexRoute
@@ -224,6 +240,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
+  '/reservation/d': typeof ReservationDRoute
   '/reservation/new': typeof ReservationNewRoute
   '/treatments/$id': typeof TreatmentsIdRoute
   '/reservation/': typeof ReservationIndexRoute
@@ -240,6 +257,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/customers/$id'
     | '/reservation/$id'
+    | '/reservation/d'
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation'
@@ -253,6 +271,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/customers/$id'
     | '/reservation/$id'
+    | '/reservation/d'
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation'
@@ -266,6 +285,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/customers/$id'
     | '/reservation/$id'
+    | '/reservation/d'
     | '/reservation/new'
     | '/treatments/$id'
     | '/reservation/'
@@ -281,6 +301,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   CustomersIdRoute: typeof CustomersIdRoute
   ReservationIdRoute: typeof ReservationIdRoute
+  ReservationDRoute: typeof ReservationDRoute
   ReservationNewRoute: typeof ReservationNewRoute
   TreatmentsIdRoute: typeof TreatmentsIdRoute
   ReservationIndexRoute: typeof ReservationIndexRoute
@@ -294,6 +315,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   CustomersIdRoute: CustomersIdRoute,
   ReservationIdRoute: ReservationIdRoute,
+  ReservationDRoute: ReservationDRoute,
   ReservationNewRoute: ReservationNewRoute,
   TreatmentsIdRoute: TreatmentsIdRoute,
   ReservationIndexRoute: ReservationIndexRoute,
@@ -316,6 +338,7 @@ export const routeTree = rootRoute
         "/signup",
         "/customers/$id",
         "/reservation/$id",
+        "/reservation/d",
         "/reservation/new",
         "/treatments/$id",
         "/reservation/"
@@ -344,6 +367,9 @@ export const routeTree = rootRoute
     },
     "/reservation/$id": {
       "filePath": "reservation/$id.tsx"
+    },
+    "/reservation/d": {
+      "filePath": "reservation/d.tsx"
     },
     "/reservation/new": {
       "filePath": "reservation/new.tsx"
