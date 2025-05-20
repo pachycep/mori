@@ -33,9 +33,9 @@ function TreatmentDetailPage() {
             <strong>메모:</strong> {treatment.memo}
           </p>
         )}
-        {treatment.image_urls && treatment.image_urls.length > 0 && (
+        {treatment.imageUrls && treatment.imageUrls.length > 0 && (
           <div className="mt-2 space-x-2">
-            {treatment.image_urls.map((url, idx) => (
+            {treatment.imageUrls.map((url, idx) => (
               <img
                 key={idx}
                 src={url}

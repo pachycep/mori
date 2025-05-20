@@ -3,7 +3,7 @@ import { Badge } from '@/ui/shared/components/badge'
 import { Button } from '@/ui/shared/components/button'
 import { Card } from '@/ui/shared/components/card'
 import { format } from 'date-fns'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { getTreatmentList } from '@/manager/controller/treatment.controller'
 import { SearchFilter } from '@/ui/shared/components/search-filter'
 import { useState } from 'react'
@@ -32,7 +32,7 @@ export const Route = createFileRoute('/treatments/')({
 })
 
 function TreatmentPage() {
-  const navigate = useNavigate()
+  const navigate = Route.useNavigate()
   const { treatments } = Route.useLoaderData()
 
   // TODO: Search filter
@@ -127,8 +127,7 @@ function TreatmentCard({
   treatment: Treatment
   onClick: (treatment: Treatment) => void
 }) {
-  const { customer, created_at, services, style_tags, after_image_url } =
-    treatment
+  const { customer, createdAt, services, styleTags, afterImageUrl } = treatment
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -143,7 +142,7 @@ function TreatmentCard({
       <div className="flex">
         <div className="w-24 h-24 bg-neutral-100 overflow-hidden">
           <img
-            src={after_image_url}
+            src={afterImageUrl}
             alt={`${customer.name}'s hairstyle`}
             className="w-full h-full object-cover object-top"
           />
@@ -152,7 +151,7 @@ function TreatmentCard({
           <div className="flex justify-between items-start mb-1">
             <div className="font-medium">{customer.name}</div>
             <div className="text-xs text-neutral-500">
-              {formatDate(created_at)}
+              {formatDate(createdAt)}
             </div>
           </div>
           <div className="flex flex-wrap gap-1 mb-2">
@@ -164,7 +163,7 @@ function TreatmentCard({
             ))}
           </div>
           <div className="flex flex-wrap gap-1">
-            {style_tags.slice(0, 3).map((tag, idx) => (
+            {styleTags.slice(0, 3).map((tag, idx) => (
               <Badge
                 key={idx}
                 variant="outline"
@@ -173,12 +172,12 @@ function TreatmentCard({
                 {tag}
               </Badge>
             ))}
-            {style_tags.length > 3 && (
+            {styleTags.length > 3 && (
               <Badge
                 variant="outline"
                 className="text-xs px-2 py-0 bg-neutral-100 text-neutral-600 border-neutral-200"
               >
-                +{style_tags.length - 3}
+                +{styleTags.length - 3}
               </Badge>
             )}
           </div>
@@ -203,12 +202,12 @@ function TreatmentDetailDialog({
 
   const {
     customer,
-    created_at,
+    createdAt,
     services,
-    style_tags,
-    after_image_url,
+    styleTags,
+    afterImageUrl,
     memo,
-    before_image_url,
+    beforeImageUrl,
   } = treatment
 
   const formatDate = (dateString: string) => {
@@ -239,13 +238,13 @@ function TreatmentDetailDialog({
         <DialogHeader>
           <DialogTitle>Treatment Details</DialogTitle>
           <DialogDescription className="text-neutral-500">
-            {formatDate(created_at)} • {customer.name}
+            {formatDate(createdAt)} • {customer.name}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="pr-4 max-h-[calc(90vh-180px)]">
           <Tabs defaultValue="after" className="w-full">
             <TabsList className="grid grid-cols-2 mb-4">
-              {before_image_url && (
+              {beforeImageUrl && (
                 <>
                   <TabsTrigger value="before" className="!rounded-button">
                     Before
@@ -255,7 +254,7 @@ function TreatmentDetailDialog({
                   </TabsTrigger>
                 </>
               )}
-              {!before_image_url && (
+              {!beforeImageUrl && (
                 <TabsTrigger
                   value="after"
                   className="col-span-2 !rounded-button"
@@ -264,11 +263,11 @@ function TreatmentDetailDialog({
                 </TabsTrigger>
               )}
             </TabsList>
-            {before_image_url && (
+            {beforeImageUrl && (
               <TabsContent value="before" className="mt-0">
                 <div className="rounded-lg overflow-hidden bg-neutral-100 mb-4">
                   <img
-                    src={before_image_url}
+                    src={beforeImageUrl}
                     alt="Before treatment"
                     className="w-full h-auto object-cover"
                   />
@@ -278,7 +277,7 @@ function TreatmentDetailDialog({
             <TabsContent value="after" className="mt-0">
               <div className="rounded-lg overflow-hidden bg-neutral-100 mb-4">
                 <img
-                  src={after_image_url}
+                  src={afterImageUrl}
                   alt="After treatment"
                   className="w-full h-auto object-cover"
                 />
@@ -307,7 +306,7 @@ function TreatmentDetailDialog({
                 Style Tags
               </h3>
               <div className="flex flex-wrap gap-2">
-                {style_tags.map((tag) => (
+                {styleTags.map((tag) => (
                   <Badge
                     key={tag}
                     variant="outline"
@@ -332,7 +331,7 @@ function TreatmentDetailDialog({
               </h3>
               <div className="flex items-center p-3 bg-neutral-50 rounded-lg">
                 <Avatar className="h-12 w-12 mr-3">
-                  <AvatarImage src={customer.image_url} alt={customer.name} />
+                  <AvatarImage src={customer.imageUrl} alt={customer.name} />
                   <AvatarFallback>
                     {customer.name
                       .split(' ')

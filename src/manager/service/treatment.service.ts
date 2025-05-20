@@ -18,7 +18,7 @@ export const treatmentService = {
     return treatmentRepository.getByReservation(reservationId)
   },
 
-  async getByCustomerId(customerId: string) {
+  async getByCustomerId(customerId: number) {
     return treatmentRepository.getByCustomerId(customerId)
   },
 }

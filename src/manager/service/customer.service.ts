@@ -9,4 +9,8 @@ export const customerService = {
   async registerCustomer(data: NewCustomer) {
     return customerRepository.create(data)
   },
+
+  async getCustomerById(id: number) {
+    return customerRepository.getById(id)
+  },
 }

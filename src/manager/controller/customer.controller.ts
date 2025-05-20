@@ -18,13 +18,18 @@ export const createCustomer = createServerFn()
           z.literal('신규'),
         ]),
         memo: z.string().optional(),
-        last_visit: z.string().optional(),
+        lastVisit: z.string().optional(),
       })
       .parse(data),
   )
   .handler(async ({ data }) => {
     return customerService.registerCustomer({
       ...data,
-      total_spent: 0,
     })
+  })
+
+export const getCustomerById = createServerFn()
+  .validator((id: number) => id)
+  .handler(async ({ data: id }) => {
+    return customerService.getCustomerById(id)
   })

@@ -11,7 +11,7 @@ export const createTreatments = createServerFn()
           name: z.string(),
           price: z.number(),
           memo: z.string().optional(),
-          image_urls: z.array(z.string()).optional(),
+          imageUrls: z.array(z.string()).optional(),
         }),
       )
       .parse(data),
@@ -37,7 +37,7 @@ export const getTreatmentById = createServerFn()
   })
 
 export const getTreatmentsByCustomerId = createServerFn()
-  .validator((id: string) => id)
+  .validator((id: number) => id)
   .handler(async ({ data: customerId }) => {
     return treatmentService.getByCustomerId(customerId)
   })

@@ -8,7 +8,7 @@ const reservationSchema = z.object({
   time: z.string(),
   memo: z.string().optional(),
   customer_name: z.string(),
-  service_id: z.string(),
+  serviceId: z.string(),
 })
 
 export const createReservation = createServerFn({

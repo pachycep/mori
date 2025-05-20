@@ -28,7 +28,7 @@ export const reservationFormOpts = formOptions({
     customer_id: '',
     notes: '',
     customer_name: '',
-    service_id: '',
+    serviceId: '',
   },
 })
 
@@ -97,7 +97,7 @@ function NewReservationPage() {
       />
 
       <form.AppField
-        name="service_id"
+        name="serviceId"
         validators={validators}
         children={(field) => (
           <field.SelectField

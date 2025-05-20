@@ -36,10 +36,10 @@ function CustomerDetailPage() {
           <strong>등급:</strong> {customer.grade}
         </p>
         <p>
-          <strong>총 매출:</strong> {customer.total_spent.toLocaleString()}원
+          <strong>총 매출:</strong> {customer.totalSpent.toLocaleString()}원
         </p>
         <p>
-          <strong>최근 방문일:</strong> {customer.last_visit}
+          <strong>최근 방문일:</strong> {customer.lastVisit}
         </p>
         {customer.memo && (
           <p>

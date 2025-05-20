@@ -25,6 +25,7 @@ import { Route as ReservationNewImport } from './routes/reservation/new'
 import { Route as ReservationIdImport } from './routes/reservation/$id'
 import { Route as CustomersIdImport } from './routes/customers/$id'
 import { Route as ClientsNewImport } from './routes/clients/new'
+import { Route as ClientsIdImport } from './routes/clients/$id'
 import { Route as AuthedRecordNewImport } from './routes/_authed/record/new'
 
 // Create/Update Routes
@@ -112,6 +113,12 @@ const ClientsNewRoute = ClientsNewImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ClientsIdRoute = ClientsIdImport.update({
+  id: '/clients/$id',
+  path: '/clients/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthedRecordNewRoute = AuthedRecordNewImport.update({
   id: '/record/new',
   path: '/record/new',
@@ -155,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
+    '/clients/$id': {
+      id: '/clients/$id'
+      path: '/clients/$id'
+      fullPath: '/clients/$id'
+      preLoaderRoute: typeof ClientsIdImport
       parentRoute: typeof rootRoute
     }
     '/clients/new': {
@@ -249,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
+  '/clients/$id': typeof ClientsIdRoute
   '/clients/new': typeof ClientsNewRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
@@ -267,6 +282,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
+  '/clients/$id': typeof ClientsIdRoute
   '/clients/new': typeof ClientsNewRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
@@ -286,6 +302,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
+  '/clients/$id': typeof ClientsIdRoute
   '/clients/new': typeof ClientsNewRoute
   '/customers/$id': typeof CustomersIdRoute
   '/reservation/$id': typeof ReservationIdRoute
@@ -306,6 +323,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
+    | '/clients/$id'
     | '/clients/new'
     | '/customers/$id'
     | '/reservation/$id'
@@ -323,6 +341,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
+    | '/clients/$id'
     | '/clients/new'
     | '/customers/$id'
     | '/reservation/$id'
@@ -340,6 +359,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
+    | '/clients/$id'
     | '/clients/new'
     | '/customers/$id'
     | '/reservation/$id'
@@ -359,6 +379,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   LogoutRoute: typeof LogoutRoute
   SignupRoute: typeof SignupRoute
+  ClientsIdRoute: typeof ClientsIdRoute
   ClientsNewRoute: typeof ClientsNewRoute
   CustomersIdRoute: typeof CustomersIdRoute
   ReservationIdRoute: typeof ReservationIdRoute
@@ -376,6 +397,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   LogoutRoute: LogoutRoute,
   SignupRoute: SignupRoute,
+  ClientsIdRoute: ClientsIdRoute,
   ClientsNewRoute: ClientsNewRoute,
   CustomersIdRoute: CustomersIdRoute,
   ReservationIdRoute: ReservationIdRoute,
@@ -402,6 +424,7 @@ export const routeTree = rootRoute
         "/login",
         "/logout",
         "/signup",
+        "/clients/$id",
         "/clients/new",
         "/customers/$id",
         "/reservation/$id",
@@ -430,6 +453,9 @@ export const routeTree = rootRoute
     },
     "/signup": {
       "filePath": "signup.tsx"
+    },
+    "/clients/$id": {
+      "filePath": "clients/$id.tsx"
     },
     "/clients/new": {
       "filePath": "clients/new.tsx"

@@ -3,7 +3,7 @@ import type { Treatment, NewTreatment } from '@/types/supabase'
 const mockTreatments: Treatment[] = [
   {
     id: 1,
-    created_at: '2025-05-15',
+    createdAt: '2025-05-15',
     reservation: {
       id: 1,
       date: '2025-05-15',
@@ -13,12 +13,12 @@ const mockTreatments: Treatment[] = [
         name: 'Olivia Parker',
         phone: '(555) 123-4567',
         email: 'olivia.p@example.com',
-        image_url:
+        imageUrl:
           'https://readdy.ai/api/search-image?query=portrait%20of%20a%20young%20woman%20with%20blonde%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=1&orientation=squarish',
         grade: 'VIP',
-        total_spent: 10000,
+        totalSpent: 10000,
       },
-      service_id: '1',
+      serviceId: '1',
     },
     name: 'Haircut & Blowout',
     price: 150,
@@ -27,21 +27,21 @@ const mockTreatments: Treatment[] = [
       name: 'Olivia Parker',
       phone: '(555) 123-4567',
       email: 'olivia.p@example.com',
-      image_url:
+      imageUrl:
         'https://readdy.ai/api/search-image?query=portrait%20of%20a%20young%20woman%20with%20blonde%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=1&orientation=squarish',
       grade: 'VIP',
-      total_spent: 10000,
+      totalSpent: 10000,
     },
     services: ['Haircut', 'Blowout'],
-    style_tags: ['Bob', 'Blonde', 'Textured'],
-    after_image_url:
+    styleTags: ['Bob', 'Blonde', 'Textured'],
+    afterImageUrl:
       'https://readdy.ai/api/search-image?query=professional%20salon%20photo%20of%20blonde%20textured%20bob%20haircut%2C%20face%20framing%20layers%2C%20clean%20studio%20background%2C%20high%20quality%20hair%20styling%20photography%2C%20beauty%20salon%20portfolio%20image&width=300&height=400&seq=10&orientation=portrait',
-    before_image_url:
+    beforeImageUrl:
       'https://readdy.ai/api/search-image?query=professional%20salon%20photo%20of%20long%20blonde%20hair%20before%20haircut%2C%20clean%20studio%20background%2C%20high%20quality%20hair%20styling%20photography%2C%20beauty%20salon%20portfolio%20image&width=300&height=400&seq=11&orientation=portrait',
   },
   {
     id: 2,
-    created_at: '2025-05-14',
+    createdAt: '2025-05-14',
     reservation: {
       id: 2,
       date: '2025-05-14',
@@ -51,12 +51,12 @@ const mockTreatments: Treatment[] = [
         name: 'Madison Chen',
         phone: '(555) 987-6543',
         email: 'madison.c@example.com',
-        image_url:
+        imageUrl:
           'https://readdy.ai/api/search-image?query=portrait%20of%20an%20asian%20woman%20with%20long%20black%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=2&orientation=squarish',
         grade: '일반',
-        total_spent: 5000,
+        totalSpent: 5000,
       },
-      service_id: '2',
+      serviceId: '2',
     },
     name: 'Color & Treatment',
     price: 200,
@@ -65,19 +65,19 @@ const mockTreatments: Treatment[] = [
       name: 'Madison Chen',
       phone: '(555) 987-6543',
       email: 'madison.c@example.com',
-      image_url:
+      imageUrl:
         'https://readdy.ai/api/search-image?query=portrait%20of%20an%20asian%20woman%20with%20long%20black%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=2&orientation=squarish',
       grade: '일반',
-      total_spent: 5000,
+      totalSpent: 5000,
     },
     services: ['Color', 'Treatment'],
-    style_tags: ['Balayage', 'Brunette', 'Long Layers'],
-    after_image_url:
+    styleTags: ['Balayage', 'Brunette', 'Long Layers'],
+    afterImageUrl:
       'https://readdy.ai/api/search-image?query=professional%20salon%20photo%20of%20brunette%20balayage%20on%20long%20layered%20hair%2C%20asian%20woman%2C%20clean%20studio%20background%2C%20high%20quality%20hair%20styling%20photography%2C%20beauty%20salon%20portfolio%20image&width=300&height=400&seq=12&orientation=portrait',
   },
   {
     id: 3,
-    created_at: '2025-05-13',
+    createdAt: '2025-05-13',
     reservation: {
       id: 3,
       date: '2025-05-13',
@@ -87,12 +87,12 @@ const mockTreatments: Treatment[] = [
         name: 'Sophia Rodriguez',
         phone: '(555) 234-5678',
         email: 'sophia.r@example.com',
-        image_url:
+        imageUrl:
           'https://readdy.ai/api/search-image?query=portrait%20of%20a%20latina%20woman%20with%20brown%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=3&orientation=squarish',
         grade: '신규',
-        total_spent: 3000,
+        totalSpent: 3000,
       },
-      service_id: '3',
+      serviceId: '3',
     },
     name: 'Complete Transformation',
     price: 300,
@@ -101,16 +101,16 @@ const mockTreatments: Treatment[] = [
       name: 'Sophia Rodriguez',
       phone: '(555) 234-5678',
       email: 'sophia.r@example.com',
-      image_url:
+      imageUrl:
         'https://readdy.ai/api/search-image?query=portrait%20of%20a%20latina%20woman%20with%20brown%20hair%2C%20professional%20photo%2C%20neutral%20expression%2C%20clean%20background%2C%20high%20quality%2C%20photorealistic%2C%20beauty%20salon%20customer&width=100&height=100&seq=3&orientation=squarish',
       grade: '신규',
-      total_spent: 3000,
+      totalSpent: 3000,
     },
     services: ['Haircut', 'Color', 'Treatment'],
-    style_tags: ['Pixie', 'Red', 'Textured'],
-    after_image_url:
+    styleTags: ['Pixie', 'Red', 'Textured'],
+    afterImageUrl:
       'https://readdy.ai/api/search-image?query=professional%20salon%20photo%20of%20copper%20red%20textured%20pixie%20haircut%2C%20latina%20woman%2C%20clean%20studio%20background%2C%20high%20quality%20hair%20styling%20photography%2C%20beauty%20salon%20portfolio%20image&width=300&height=400&seq=13&orientation=portrait',
-    before_image_url:
+    beforeImageUrl:
       'https://readdy.ai/api/search-image?query=professional%20salon%20photo%20of%20long%20brown%20hair%20before%20pixie%20haircut%2C%20latina%20woman%2C%20clean%20studio%20background%2C%20high%20quality%20hair%20styling%20photography%2C%20beauty%20salon%20portfolio%20image&width=300&height=400&seq=14&orientation=portrait',
   },
 ]
@@ -154,7 +154,7 @@ export const treatmentRepository = {
     )
   },
 
-  async getByCustomerId(customerId: string): Promise<Treatment[]> {
+  async getByCustomerId(customerId: number): Promise<Treatment[]> {
     return new Promise((resolve) =>
       setTimeout(
         () =>

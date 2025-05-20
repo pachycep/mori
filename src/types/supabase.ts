@@ -4,16 +4,16 @@ export type Customer = {
   phone: string
   email: string
   grade: 'VIP' | '일반' | '신규'
-  image_url?: string
+  imageUrl: string
   memo?: string
-  total_spent: number
-  last_visit?: string // ISO 날짜 문자열
+  totalSpent: number
+  lastVisit?: string // ISO 날짜 문자열
+  favoriteServices?: string[]
+  tags?: string[]
 }
 
-export type NewCustomer = Partial<
-  Pick<Customer, 'id' | 'memo' | 'last_visit'>
-> &
-  Omit<Customer, 'id' | 'memo' | 'last_visit'>
+export type NewCustomer = Partial<Pick<Customer, 'id' | 'memo' | 'lastVisit'>> &
+  Omit<Customer, 'id' | 'memo' | 'lastVisit'>
 
 export type Reservation = {
   id: number
@@ -21,7 +21,7 @@ export type Reservation = {
   time: string
   customer: Customer
   notes?: string
-  service_id: string // 시술 정보
+  serviceId: string // 시술 정보
 }
 
 export type NewReservation = Partial<Pick<Reservation, 'id' | 'notes'>> &
@@ -33,16 +33,16 @@ export type Treatment = {
   name: string
   price: number
   memo?: string
-  image_urls?: string[]
+  imageUrls?: string[]
   customer: Customer
-  created_at: string
+  createdAt: string
   services: string[]
-  style_tags: string[]
-  before_image_url?: string
-  after_image_url?: string
+  styleTags: string[]
+  beforeImageUrl?: string
+  afterImageUrl?: string
 }
 
 export type NewTreatment = Partial<
-  Pick<Treatment, 'id' | 'memo' | 'image_urls'>
+  Pick<Treatment, 'id' | 'memo' | 'imageUrls'>
 > &
-  Omit<Treatment, 'id' | 'memo' | 'image_urls'>
+  Omit<Treatment, 'id' | 'memo' | 'imageUrls'>

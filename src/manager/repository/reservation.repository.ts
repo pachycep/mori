@@ -8,7 +8,7 @@ const mockReservations: Reservation[] = [
     date: '2024-03-20',
     time: '14:00',
     notes: '단발 컷',
-    service_id: '1',
+    serviceId: '1',
   },
   {
     id: '2',
@@ -17,7 +17,7 @@ const mockReservations: Reservation[] = [
     date: '2024-03-20',
     time: '15:30',
     notes: '염색 + 펌',
-    service_id: '2',
+    serviceId: '2',
   },
   {
     id: '3',
@@ -26,7 +26,7 @@ const mockReservations: Reservation[] = [
     date: '2024-03-21',
     time: '11:00',
     notes: '헤어케어',
-    service_id: '3',
+    serviceId: '3',
   },
 ]
 
