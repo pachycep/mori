@@ -18,6 +18,7 @@ import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
 import { Route as TreatmentsIndexImport } from './routes/treatments/index'
 import { Route as ReservationIndexImport } from './routes/reservation/index'
+import { Route as DevIndexImport } from './routes/dev/index'
 import { Route as ClientsIndexImport } from './routes/clients/index'
 import { Route as TreatmentsNewImport } from './routes/treatments/new'
 import { Route as TreatmentsIdImport } from './routes/treatments/$id'
@@ -68,6 +69,12 @@ const TreatmentsIndexRoute = TreatmentsIndexImport.update({
 const ReservationIndexRoute = ReservationIndexImport.update({
   id: '/reservation/',
   path: '/reservation/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DevIndexRoute = DevIndexImport.update({
+  id: '/dev/',
+  path: '/dev/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -220,6 +227,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/dev/': {
+      id: '/dev/'
+      path: '/dev'
+      fullPath: '/dev'
+      preLoaderRoute: typeof DevIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/reservation/': {
       id: '/reservation/'
       path: '/reservation'
@@ -271,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/treatments/$id': typeof TreatmentsIdRoute
   '/treatments/new': typeof TreatmentsNewRoute
   '/clients': typeof ClientsIndexRoute
+  '/dev': typeof DevIndexRoute
   '/reservation': typeof ReservationIndexRoute
   '/treatments': typeof TreatmentsIndexRoute
   '/record/new': typeof AuthedRecordNewRoute
@@ -290,6 +305,7 @@ export interface FileRoutesByTo {
   '/treatments/$id': typeof TreatmentsIdRoute
   '/treatments/new': typeof TreatmentsNewRoute
   '/clients': typeof ClientsIndexRoute
+  '/dev': typeof DevIndexRoute
   '/reservation': typeof ReservationIndexRoute
   '/treatments': typeof TreatmentsIndexRoute
   '/record/new': typeof AuthedRecordNewRoute
@@ -310,6 +326,7 @@ export interface FileRoutesById {
   '/treatments/$id': typeof TreatmentsIdRoute
   '/treatments/new': typeof TreatmentsNewRoute
   '/clients/': typeof ClientsIndexRoute
+  '/dev/': typeof DevIndexRoute
   '/reservation/': typeof ReservationIndexRoute
   '/treatments/': typeof TreatmentsIndexRoute
   '/_authed/record/new': typeof AuthedRecordNewRoute
@@ -331,6 +348,7 @@ export interface FileRouteTypes {
     | '/treatments/$id'
     | '/treatments/new'
     | '/clients'
+    | '/dev'
     | '/reservation'
     | '/treatments'
     | '/record/new'
@@ -349,6 +367,7 @@ export interface FileRouteTypes {
     | '/treatments/$id'
     | '/treatments/new'
     | '/clients'
+    | '/dev'
     | '/reservation'
     | '/treatments'
     | '/record/new'
@@ -367,6 +386,7 @@ export interface FileRouteTypes {
     | '/treatments/$id'
     | '/treatments/new'
     | '/clients/'
+    | '/dev/'
     | '/reservation/'
     | '/treatments/'
     | '/_authed/record/new'
@@ -387,6 +407,7 @@ export interface RootRouteChildren {
   TreatmentsIdRoute: typeof TreatmentsIdRoute
   TreatmentsNewRoute: typeof TreatmentsNewRoute
   ClientsIndexRoute: typeof ClientsIndexRoute
+  DevIndexRoute: typeof DevIndexRoute
   ReservationIndexRoute: typeof ReservationIndexRoute
   TreatmentsIndexRoute: typeof TreatmentsIndexRoute
 }
@@ -405,6 +426,7 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentsIdRoute: TreatmentsIdRoute,
   TreatmentsNewRoute: TreatmentsNewRoute,
   ClientsIndexRoute: ClientsIndexRoute,
+  DevIndexRoute: DevIndexRoute,
   ReservationIndexRoute: ReservationIndexRoute,
   TreatmentsIndexRoute: TreatmentsIndexRoute,
 }
@@ -432,6 +454,7 @@ export const routeTree = rootRoute
         "/treatments/$id",
         "/treatments/new",
         "/clients/",
+        "/dev/",
         "/reservation/",
         "/treatments/"
       ]
@@ -477,6 +500,9 @@ export const routeTree = rootRoute
     },
     "/clients/": {
       "filePath": "clients/index.tsx"
+    },
+    "/dev/": {
+      "filePath": "dev/index.tsx"
     },
     "/reservation/": {
       "filePath": "reservation/index.tsx"

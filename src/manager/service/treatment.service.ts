@@ -1,5 +1,5 @@
 import { treatmentRepository } from '../repository/treatment.repository'
-import type { NewTreatment } from '@/types/supabase'
+import type { Treatment } from '@/types/supabase'
 
 export const treatmentService = {
   async getTreatmentList() {
@@ -10,8 +10,8 @@ export const treatmentService = {
     return treatmentRepository.getById(id)
   },
 
-  async createMany(treatments: NewTreatment[]) {
-    return treatmentRepository.createMany(treatments)
+  async create(treatment: Treatment) {
+    return treatmentRepository.create(treatment)
   },
 
   async getByReservation(reservationId: string) {

@@ -21,7 +21,7 @@ function RouteComponent() {
   )
 }
 
-export const reservationFormOpts = formOptions({
+const reservationFormOpts = formOptions({
   defaultValues: {
     date: new Date().toISOString().split('T')[0],
     time: '',

@@ -13,6 +13,7 @@ import {
 } from '../select'
 import { Textarea } from '../textarea'
 import { CalendarInput } from '../calendar-input'
+import { Badge } from '../badge'
 
 const { fieldContext, formContext, useFieldContext, useFormContext } =
   createFormHookContexts()
@@ -24,6 +25,23 @@ function TextField({ label }: { label: string }) {
     <FieldContainer>
       <Label>{label}</Label>
       <Input
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+      />
+      <FieldError field={field} />
+    </FieldContainer>
+  )
+}
+
+function FileInputField({ label }: { label: string }) {
+  const field = useFieldContext<string>()
+
+  // TODO: 파일 업로드 기능 추가
+  return (
+    <FieldContainer>
+      <Label>{label}</Label>
+      <Input
+        type="file"
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
       />
@@ -78,6 +96,44 @@ function TextareaField({
         placeholder={placeholder}
       />
       <FieldError field={field} />
+    </FieldContainer>
+  )
+}
+
+function BadgeField({
+  label,
+  options,
+}: { label: string; options: { value: string; label: string }[] }) {
+  const field = useFieldContext<string[]>()
+
+  const value = field.state.value
+  const onClick = (option: string) => {
+    field.handleChange(
+      value.includes(option)
+        ? value.filter((v) => v !== option)
+        : [...value, option],
+    )
+  }
+  return (
+    <FieldContainer>
+      <Label>{label}</Label>
+      <div className="flex flex-wrap gap-2">
+        {options.map((opt) => (
+          <Badge
+            key={opt.value}
+            variant="outline"
+            className={cn(
+              'cursor-pointer',
+              value.includes(opt.value)
+                ? 'bg-amber-100 text-amber-800 border-amber-200'
+                : 'bg-white text-neutral-700 hover:bg-neutral-100',
+            )}
+            onClick={() => onClick(opt.value)}
+          >
+            {opt.label}
+          </Badge>
+        ))}
+      </div>
     </FieldContainer>
   )
 }
@@ -151,6 +207,8 @@ export const { useAppForm } = createFormHook({
     SelectField,
     TextareaField,
     CalendarField,
+    BadgeField,
+    FileInputField,
   },
   formComponents: {
     SubscribeButton,

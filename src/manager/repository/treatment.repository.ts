@@ -122,12 +122,12 @@ export const treatmentRepository = {
     )
   },
 
-  async createMany(treatments: NewTreatment[]): Promise<Treatment[]> {
-    const created = treatments.map((t) => ({
-      ...t,
+  async create(treatment: NewTreatment): Promise<Treatment> {
+    const created = {
+      ...treatment,
       id: Number(Date.now()) + Math.floor(Math.random() * 1000),
-    }))
-    mockTreatments.push(...created)
+    }
+    mockTreatments.push(created)
     return new Promise((resolve) => setTimeout(() => resolve(created), 300))
   },
 

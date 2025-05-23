@@ -2,22 +2,22 @@ import { createServerFn } from '@tanstack/react-start'
 import { treatmentService } from '../service/treatment.service'
 import { z } from 'zod'
 
-export const createTreatments = createServerFn()
+export const createTreatment = createServerFn({
+  method: 'POST',
+})
   .validator((data) =>
     z
-      .array(
-        z.object({
-          reservation_id: z.string(),
-          name: z.string(),
-          price: z.number(),
-          memo: z.string().optional(),
-          imageUrls: z.array(z.string()).optional(),
-        }),
-      )
+      .object({
+        reservation_id: z.string(),
+        name: z.string(),
+        price: z.number(),
+        memo: z.string().optional(),
+        imageUrls: z.array(z.string()).optional(),
+      })
       .parse(data),
   )
   .handler(async ({ data }) => {
-    return treatmentService.createMany(data)
+    return treatmentService.create(data)
   })
 
 export const getTreatmentsByReservation = createServerFn()

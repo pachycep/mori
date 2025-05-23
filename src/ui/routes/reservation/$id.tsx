@@ -7,14 +7,14 @@ export const Route = createFileRoute('/reservation/$id')({
   loader: async ({ params }) => {
     // FIXME: @dmdm 0510 상세 API로 수정
     const all = await getReservationList()
-    const reservation = all.find((r) => r.id === params.id)
+    const reservation = all.find((r) => r.id === Number(params.id))
 
     if (!reservation) {
       throw new Error('예약을 찾을 수 없습니다')
     }
 
     const treatment = await getTreatmentsByReservation({
-      data: reservation.id,
+      data: reservation.id.toString(),
     })
 
     return { reservation, treatment }
@@ -38,8 +38,8 @@ function ReservationDetailPage() {
         <div>
           <strong>고객 ID:</strong>
           <CustomerInfo
-            id={reservation.customer_id}
-            name={reservation.customer_name}
+            id={reservation.customer.id}
+            name={reservation.customer.name}
           />
         </div>
         <TreatmentInfo treatment={treatment} />
@@ -53,13 +53,13 @@ function ReservationDetailPage() {
   )
 }
 
-function CustomerInfo({ id, name }: { id: string; name: string }) {
+function CustomerInfo({ id, name }: { id: number; name: string }) {
   return (
     <div>
       <strong>이름:</strong>
       <Link
         to="/customers/$id"
-        params={{ id }}
+        params={{ id: id.toString() }}
         className="text-blue-500 underline"
       >
         <p>{name}</p>
@@ -78,7 +78,7 @@ function TreatmentInfo({ treatment }: { treatment: Treatment | null }) {
       <h3 className="text-md font-semibold mb-2">시술 정보</h3>
       <Link
         to="/treatments/$id"
-        params={{ id }}
+        params={{ id: id.toString() }}
         className="text-blue-500 underline"
       >
         <div className="border rounded-md p-3 bg-white shadow-sm">
