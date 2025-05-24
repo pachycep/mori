@@ -1,31 +1,32 @@
 import { Button } from '../../shared/components/button'
 import { useLocation, useRouter } from '@tanstack/react-router'
 import { useMemo } from 'react'
+import {
+  HomeIcon,
+  CalendarIcon,
+  PlusIcon,
+  PersonIcon,
+  BarChartIcon,
+} from '@radix-ui/react-icons'
 
 export function BottomNavigation() {
   return (
-    <footer className="fixed bottom-0 w-full bg-white border-t border-neutral-200 z-50">
-      <div className="grid grid-cols-5 h-[60px]">
-        <NavigationButton icon="fa-house" path="/" label="홈" />
-        <NavigationButton icon="fa-calendar" path="/calendar" label="캘린더" />
-        <ActionButton icon="fa-plus" path="/add" label="추가" />
-        <NavigationButton icon="fa-users" path="/clients" label="고객" />
-        <NavigationButton
-          icon="fa-chart-simple"
-          path="/reports"
-          label="리포트"
-        />
-      </div>
+    <footer className="fixed bottom-0 w-dvw flex justify-between items-center bg-white border-t border-neutral-200 z-10 p-4">
+      <NavigationButton Icon={HomeIcon} path="/" label="홈" />
+      <NavigationButton Icon={CalendarIcon} path="/calendar" label="캘린더" />
+      <ActionButton Icon={PlusIcon} path="/add" label="추가" />
+      <NavigationButton Icon={PersonIcon} path="/clients" label="고객" />
+      <NavigationButton Icon={BarChartIcon} path="/reports" label="리포트" />
     </footer>
   )
 }
 
 function ActionButton({
-  icon,
+  Icon,
   path,
   label,
 }: {
-  icon: string
+  Icon: React.ComponentType<{ className?: string }>
   path: string
   label: string
 }) {
@@ -34,23 +35,23 @@ function ActionButton({
     <Button
       variant="ghost"
       onClick={() => router.navigate({ to: path })}
-      className="flex items-center justify-center relative mt-[-20px]"
+      className="flex items-center justify-center"
       aria-label={label}
       title={label}
     >
       <div className="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center shadow-lg hover:bg-amber-700 transition-colors">
-        <i className={`fa-solid ${icon} text-white text-xl`} />
+        <Icon className={`text-white`} />
       </div>
     </Button>
   )
 }
 
 function NavigationButton({
-  icon,
+  Icon,
   path,
   label,
 }: {
-  icon: string
+  Icon: React.ComponentType<{ className?: string }>
   path: string
   label: string
 }) {
@@ -74,10 +75,8 @@ function NavigationButton({
       aria-label={label}
       title={label}
     >
-      <i
-        className={`fa-solid ${icon} text-xl ${
-          isActive(path) ? 'text-amber-600' : 'text-neutral-400'
-        }`}
+      <Icon
+        className={`${isActive(path) ? 'text-amber-600' : 'text-neutral-400'}`}
       />
     </Button>
   )

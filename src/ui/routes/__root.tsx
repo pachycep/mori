@@ -1,11 +1,9 @@
 import {
   HeadContent,
-  Link,
   Outlet,
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { createServerFn } from '@tanstack/react-start'
 import type * as React from 'react'
 import { DefaultCatchBoundary } from './~components/DefaultCatchBoundary'
@@ -13,6 +11,7 @@ import { NotFound } from './~components/NotFound'
 import appCss from '@/ui/shared/styles/app.css?url'
 import { seo } from '@/ui/shared/utils/seo'
 import { getSupabaseServerClient } from '@/manager/client/supabase'
+import { BottomNavigation } from './~components/bottom-navigation'
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
   const supabase = await getSupabaseServerClient()
@@ -94,46 +93,15 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { user } = Route.useRouteContext()
-
   return (
     <html lang="ko-KR">
       <head>
         <HeadContent />
       </head>
       <body>
-        <div className="p-2 flex gap-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>{' '}
-          <Link
-            to="/posts"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Posts
-          </Link>
-          <div className="ml-auto">
-            {user ? (
-              <>
-                <span className="mr-2">{user.email}</span>
-                <Link to="/logout">Logout</Link>
-              </>
-            ) : (
-              <Link to="/login">Login</Link>
-            )}
-          </div>
-        </div>
-        <hr />
         {children}
-        <TanStackRouterDevtools position="bottom-right" />
+        <BottomNavigation />
+        {/* <TanStackRouterDevtools position="bottom-right" /> */}
         <Scripts />
       </body>
     </html>
