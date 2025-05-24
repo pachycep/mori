@@ -1,70 +1,67 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createCustomer } from '@/manager/controller/customer.controller'
+import { Button } from '@/ui/shared/components/button'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from '@/ui/shared/components/drawer'
+import { useAppForm } from '@/ui/shared/components/form'
+import { createFileRoute, useCanGoBack, useNavigate, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/clients/new')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/clients/new"!</div>
+  return <CreateClient />
 }
 
-// dialog로 만드렁야함
-// function ClientNewDialog() {
-//   return (
-//     <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-//         <DialogContent className="sm:max-w-md">
-//           <DialogHeader>
-//             <DialogTitle>Add New Client</DialogTitle>
-//             <DialogDescription>
-//               Enter the client's information below to add them to your client
-//               list.
-//             </DialogDescription>
-//           </DialogHeader>
-//           <div className="space-y-4 py-4">
-//             <div className="space-y-2">
-//               <label htmlFor="name" className="text-sm font-medium">
-//                 Full Name
-//               </label>
-//               <Input id="name" placeholder="Enter client name" />
-//             </div>
-//             <div className="space-y-2">
-//               <label htmlFor="phone" className="text-sm font-medium">
-//                 Phone Number
-//               </label>
-//               <Input id="phone" placeholder="(555) 123-4567" />
-//             </div>
-//             <div className="space-y-2">
-//               <label htmlFor="email" className="text-sm font-medium">
-//                 Email (Optional)
-//               </label>
-//               <Input id="email" type="email" placeholder="client@example.com" />
-//             </div>
-//             <div className="space-y-2">
-//               <label htmlFor="tags" className="text-sm font-medium">
-//                 Tags (Optional)
-//               </label>
-//               <Input id="tags" placeholder="Add tags separated by commas" />
-//             </div>
-//             <div className="space-y-2">
-//               <label htmlFor="notes" className="text-sm font-medium">
-//                 Notes (Optional)
-//               </label>
-//               <Input id="notes" placeholder="Add any notes about this client" />
-//             </div>
-//           </div>
-//           <DialogFooter>
-//             <Button
-//               variant="outline"
-//               onClick={() => setShowAddDialog(false)}
-//               className="!rounded-button"
-//             >
-//               Cancel
-//             </Button>
-//             <Button className="bg-amber-600 hover:bg-amber-700 !rounded-button">
-//               Add Client
-//             </Button>
-//           </DialogFooter>
-//         </DialogContent>
-//       </Dialog>
-//   )
-// }
+
+function CreateClient() {
+  const router = useRouter()
+  const canGoBack = useCanGoBack()
+
+  const form = useAppForm({
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      grade: '신규',
+      memo: '',
+      lastVisit: '',
+    },
+    onSubmit: async ({ value }) => {
+      await createCustomer({ data: value })
+    },
+  })
+
+  return (
+    <form.AppForm>
+    <Drawer open={true}>
+      <DrawerContent className="bg-white">
+        <DrawerHeader>
+          <DrawerTitle>Add New Client</DrawerTitle>
+          <DrawerDescription>
+            Enter the client's information below to add them to your client
+            list.
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className='flex flex-col gap-4 p-4'>
+          <form.AppField name="name" children={(field) => <field.TextField label="Name" />} />
+          <form.AppField name="phone" children={(field) => <field.TextField label="Phone" />} />
+          <form.AppField name="email" children={(field) => <field.TextField label="Email" />} />
+          <form.AppField name="grade" children={(field) => <field.TextField label="Grade" />} />
+          <form.AppField name="memo" children={(field) => <field.TextField label="Memo" />} />
+        </div>
+        <DrawerFooter>
+          <form.SubscribeButton label="Submit" />
+          <Button variant='ghost' onClick={() => canGoBack ? router.history.back() : router.navigate({ to: '/' })}>Cancel</Button>
+        </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </form.AppForm>
+  )
+}
