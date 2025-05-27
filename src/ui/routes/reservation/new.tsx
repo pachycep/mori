@@ -26,7 +26,7 @@ const reservationFormOpts = formOptions({
     date: new Date().toISOString().split('T')[0],
     time: '',
     customer_id: '',
-    notes: '',
+    memo: '',
     customer_name: '',
     serviceId: '',
   },
@@ -109,7 +109,7 @@ function NewReservationPage() {
       />
 
       <form.AppField
-        name="notes"
+        name="memo"
         validators={validators}
         children={(field) => <field.TextareaField label="특이사항 메모" />}
       />

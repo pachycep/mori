@@ -52,9 +52,9 @@ function ReservationList({ reservations }: { reservations: Reservation[] }) {
 }
 
 function ReservationItem({ reservation }: { reservation: Reservation }) {
-  const { id, date, time, customer_name, notes } = reservation
+  const { id, date, time, customer, memo } = reservation
   return (
-    <Link key={id} to="/reservation/$id" params={{ id }}>
+    <Link key={id} to="/reservation/$id" params={{ id: id.toString() }}>
       <li className="p-4 hover:bg-gray-50 transition-all">
         <div className="flex justify-between items-center mb-1">
           <div className="text-sm font-medium text-gray-800">
@@ -63,11 +63,9 @@ function ReservationItem({ reservation }: { reservation: Reservation }) {
         </div>
         <p>
           <strong>이름:</strong>
-          {customer_name}
+          {customer.name}
         </p>
-        {notes && (
-          <div className="text-xs text-gray-500 mt-1">메모: {notes}</div>
-        )}
+        {memo && <div className="text-xs text-gray-500 mt-1">메모: {memo}</div>}
       </li>
     </Link>
   )

@@ -43,9 +43,9 @@ function ReservationDetailPage() {
           />
         </div>
         <TreatmentInfo treatment={treatment} />
-        {reservation.notes && (
+        {reservation.memo && (
           <div>
-            <strong>메모:</strong> {reservation.notes}
+            <strong>메모:</strong> {reservation.memo}
           </div>
         )}
       </div>

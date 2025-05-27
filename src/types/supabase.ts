@@ -20,12 +20,13 @@ export type Reservation = {
   date: string
   time: string
   customer: Customer
-  notes?: string
-  serviceId: string // 시술 정보
+  memo?: string
+  services: string[]
+  status: '완료' | '진행중' | '취소'
 }
 
-export type NewReservation = Partial<Pick<Reservation, 'id' | 'notes'>> &
-  Omit<Reservation, 'id' | 'notes'>
+export type NewReservation = Partial<Pick<Reservation, 'id' | 'memo'>> &
+  Omit<Reservation, 'id' | 'memo'>
 
 export type Treatment = {
   id: number

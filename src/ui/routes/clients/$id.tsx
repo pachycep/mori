@@ -199,7 +199,7 @@ function ClientPreferences({ customer }: { customer: Customer }) {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-medium text-neutral-700 mb-2">Notes</h4>
+          <h4 className="text-sm font-medium text-neutral-700 mb-2">Memo</h4>
           <div className="bg-neutral-50 rounded-lg p-3">
             <p className="text-neutral-600 text-sm whitespace-pre-line">
               {memo}

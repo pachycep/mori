@@ -24,7 +24,7 @@ const treatmentsFormOptions = formOptions({
     date: new Date().toISOString().split('T')[0],
     time: '',
     customer_id: '',
-    notes: '',
+    memo: '',
     customer_name: '',
     serviceId: '',
     beforeImage: '',
@@ -80,8 +80,8 @@ function CreateTreatment() {
         />
 
         <form.AppField
-          name="notes"
-          children={(field) => <field.TextareaField label="Notes" />}
+          name="memo"
+          children={(field) => <field.TextareaField label="memo" />}
         />
 
         <form.AppField

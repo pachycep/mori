@@ -319,7 +319,7 @@ function TreatmentDetailDialog({
             </div>
             <div>
               <h3 className="text-sm font-medium text-neutral-500 mb-2">
-                Notes
+                Memo
               </h3>
               <div className="bg-neutral-50 p-3 rounded-lg text-neutral-700 text-sm">
                 {memo}

@@ -15,8 +15,9 @@ const mockReservations: Reservation[] = [
     },
     date: '2024-03-20',
     time: '14:00',
-    notes: '단발 컷',
-    serviceId: '1',
+    memo: '단발 컷',
+    services: ['단발 컷'],
+    status: '완료',
   },
   {
     id: 2,
@@ -32,8 +33,9 @@ const mockReservations: Reservation[] = [
     },
     date: '2024-03-20',
     time: '15:30',
-    notes: '염색 + 펌',
-    serviceId: '2',
+    memo: '염색 + 펌',
+    services: ['염색', '펌'],
+    status: '진행중',
   },
   {
     id: 3,
@@ -49,8 +51,9 @@ const mockReservations: Reservation[] = [
     },
     date: '2024-03-21',
     time: '11:00',
-    notes: '헤어케어',
-    serviceId: '3',
+    memo: '헤어케어',
+    services: ['헤어케어'],
+    status: '취소',
   },
 ]
 
