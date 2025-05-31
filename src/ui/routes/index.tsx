@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { BellIcon, SearchIcon, SettingsIcon } from 'lucide-react'
+import { BellIcon, PenIcon, SearchIcon, SettingsIcon } from 'lucide-react'
 import React, { useRef, useLayoutEffect, useState, forwardRef } from 'react'
 import { getNext7Days } from '../shared/utils/date'
 import { getDesignerById } from '@/manager/controller/designer.controller'
 import type { Designer, Reservation } from '@/types/supabase'
 import { getReservationList } from '@/manager/controller/reservation.controller'
 import { Badge } from '../shared/components/badge'
+import { UserInfo } from '../shared/components/user-info'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -114,48 +115,56 @@ function ReservationCard({ reservation }: { reservation: Reservation }) {
     time,
     status,
     memo,
-    date,
   } = reservation
   return (
-    <div className="flex items-center gap-4 bg-white rounded-xl shadow p-4">
-      <img
-        src={imageUrl || '/default-profile.png'}
-        alt={name}
-        className="w-12 h-12 rounded-full object-cover border"
-      />
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between">
-          <p className="font-bold text-base text-neutral-900 truncate">
-            {name}
-          </p>
-          <p className="text-xs text-neutral-400">{phone}</p>
-          <span
-            className={`text-xs px-2 py-1 rounded-full ${
+    <div className="flex bg-white rounded-xl shadow border border-l-4 border-l-amber-500 w-full h-full items-stretch">
+      <div className="flex items-center justify-center min-h-full px-2 bg-amber-50">
+        <p className="text-lg font-bold text-amber-700">{time}</p>
+      </div>
+
+      <div className="flex flex-col gap-2 w-full p-4">
+        <div className="flex items-start justify-between">
+          <UserInfo name={name} imageUrl={imageUrl} phone={phone} />
+          <Badge
+            variant="secondary"
+            className={
               status === '완료'
                 ? 'bg-green-100 text-green-700'
                 : status === '진행중'
                   ? 'bg-amber-100 text-amber-700'
                   : 'bg-gray-100 text-gray-500'
-            }`}
+            }
           >
             {status}
-          </span>
+          </Badge>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {services.map((service) => (
-            <Badge key={service} variant="outline">
-              {service}
-            </Badge>
-          ))}
-        </div>
+        <Services services={services} />
 
-        <div>
-          <p className="text-xs text-neutral-400">{memo}</p>
-        </div>
-
-        <div className="text-xs text-neutral-400">{time}</div>
+        <Memo memo={memo} />
       </div>
+    </div>
+  )
+}
+
+function Services({ services }: { services: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {services.map((service) => (
+        <Badge key={service} variant="outline">
+          {service}
+        </Badge>
+      ))}
+    </div>
+  )
+}
+
+function Memo({ memo }: { memo: string | undefined }) {
+  if (!memo) return null
+  return (
+    <div className="flex gap-1 items-center p-2 rounded-lg bg-gray-100">
+      <PenIcon size={12} />
+      <p className="text-xs text-neutral-400">{memo}</p>
     </div>
   )
 }

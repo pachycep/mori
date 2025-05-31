@@ -1,15 +1,11 @@
 import { getCustomerList } from '@/manager/controller/customer.controller'
 import type { Customer } from '@/types/supabase'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/ui/shared/components/avatar'
 import { Badge } from '@/ui/shared/components/badge'
 import { Card } from '@/ui/shared/components/card'
 import { ClientTag } from '@/ui/shared/components/client-tag'
 import { SearchFilter } from '@/ui/shared/components/search-filter'
 import { Tabs, TabsList, TabsTrigger } from '@/ui/shared/components/tabs'
+import { UserInfo } from '@/ui/shared/components/user-info'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
@@ -70,50 +66,35 @@ function CustomerList({ customers }: { customers: Customer[] }) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4 p-4">
       {customers.map(({ id, name, phone, imageUrl, lastVisit, tags = [] }) => (
         <Card
           key={id}
-          className="p-4 cursor-pointer hover:shadow-md transition-shadow"
+          className="p-4 cursor-pointer hover:shadow-md transition-shadow bg-white"
           onClick={() => navigateToDetail(id)}
         >
-          <div className="flex items-center">
-            <Avatar className="h-14 w-14 mr-3">
-              <AvatarImage src={imageUrl} alt={name} />
-              <AvatarFallback>
-                {name
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
-              <div className="flex justify-between items-start">
-                <h3 className="font-medium text-neutral-800 truncate">
-                  {name}
-                </h3>
-                <span className="text-xs text-neutral-500 whitespace-nowrap ml-2">
-                  {lastVisit}
-                </span>
-              </div>
-              <div className="text-sm text-neutral-600 mt-0.5">{phone}</div>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {tags?.slice(0, 2).map((tag, index) => (
-                  <ClientTag key={index} tag={tag} />
-                ))}
-                {tags?.length > 2 && (
-                  <Badge
-                    variant="outline"
-                    className="bg-neutral-100 text-neutral-600 border-neutral-200 text-xs px-1.5 py-0.5"
-                  >
-                    +{tags?.length - 2}
-                  </Badge>
-                )}
-              </div>
+          <div className="flex justify-between items-start flex-col gap-2">
+            <div className="w-full flex justify-between items-start">
+              <UserInfo name={name} imageUrl={imageUrl} phone={phone} />
+              <span className="text-xs text-neutral-500 whitespace-nowrap ml-2">
+                {lastVisit}
+              </span>
             </div>
-            <button className="p-2 text-neutral-400 hover:text-neutral-600">
-              <i className="fa-solid fa-chevron-right" />
-            </button>
+
+            <div className="flex flex-wrap gap-1 mt-2">
+              {tags?.slice(0, 2).map((tag, index) => (
+                <ClientTag key={index} tag={tag} />
+              ))}
+
+              {tags?.length > 2 && (
+                <Badge
+                  variant="outline"
+                  className="bg-neutral-100 text-neutral-600 border-neutral-200 text-xs px-1.5 py-0.5"
+                >
+                  +{tags?.length - 2}
+                </Badge>
+              )}
+            </div>
           </div>
         </Card>
       ))}
