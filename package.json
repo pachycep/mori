@@ -8,8 +8,7 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
-    "gen:types": "supabase gen types typescript --project-id sorwffiqbyeucfutwpeo > src/types/supabase.ts",
-    "gen:supabase-types": "supabase gen types typescript --project-id sorwffiqbyeucfutwpeo --schema public > src/types/supabase.ts",
+    "gen:types": "supabase gen types typescript --project-id sorwffiqbyeucfutwpeo --schema public > src/types/supabase.generated.ts",
     "biome-check": "biome check --write ./src"
   },
   "keywords": [],
