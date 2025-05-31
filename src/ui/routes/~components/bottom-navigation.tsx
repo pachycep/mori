@@ -1,13 +1,13 @@
-import { Button } from '../../shared/components/button'
-import { useLocation, useRouter } from '@tanstack/react-router'
-import { useMemo } from 'react'
 import {
-  HomeIcon,
-  PlusIcon,
-  PersonIcon,
   BarChartIcon,
+  HomeIcon,
+  PersonIcon,
+  PlusIcon,
   ScissorsIcon,
 } from '@radix-ui/react-icons'
+import { useLocation, useRouter } from '@tanstack/react-router'
+import { useMemo } from 'react'
+import { Button } from '../../shared/components/button'
 
 export function BottomNavigation() {
   return (

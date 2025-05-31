@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
-import { treatmentService } from '../service/treatment.service'
 import { z } from 'zod'
+import { treatmentService } from '../service/treatment.service'
 
 export const createTreatment = createServerFn({
   method: 'POST',

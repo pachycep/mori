@@ -1,5 +1,5 @@
-import { designerRepository } from '../repository/designer.repository'
 import type { Designer } from '@/types/supabase'
+import { designerRepository } from '../repository/designer.repository'
 
 export const designerService = {
   async getDesignerList() {

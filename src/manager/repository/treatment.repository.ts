@@ -1,4 +1,4 @@
-import type { Treatment, NewTreatment } from '@/types/supabase'
+import type { NewTreatment, Treatment } from '@/types/supabase'
 
 export const treatmentRepository = {
   async getAll(): Promise<Treatment[]> {

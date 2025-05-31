@@ -1,28 +1,28 @@
-import type { Treatment } from '@/types/supabase'
-import { Badge } from '@/ui/shared/components/badge'
-import { Button } from '@/ui/shared/components/button'
-import { Card } from '@/ui/shared/components/card'
-import { format } from 'date-fns'
-import { createFileRoute } from '@tanstack/react-router'
 import { getTreatmentList } from '@/manager/controller/treatment.controller'
-import { SearchFilter } from '@/ui/shared/components/search-filter'
-import { useState } from 'react'
-import { TabsContent, TabsList, TabsTrigger } from '@/ui/shared/components/tabs'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/ui/shared/components/dialog'
-import { ScrollArea } from '@/ui/shared/components/scroll-area'
-import { Tabs } from '@/ui/shared/components/tabs'
+import type { Treatment } from '@/types/supabase'
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@/ui/shared/components/avatar'
+import { Badge } from '@/ui/shared/components/badge'
+import { Button } from '@/ui/shared/components/button'
+import { Card } from '@/ui/shared/components/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/ui/shared/components/dialog'
+import { ScrollArea } from '@/ui/shared/components/scroll-area'
+import { SearchFilter } from '@/ui/shared/components/search-filter'
+import { TabsContent, TabsList, TabsTrigger } from '@/ui/shared/components/tabs'
+import { Tabs } from '@/ui/shared/components/tabs'
+import { createFileRoute } from '@tanstack/react-router'
+import { format } from 'date-fns'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/_authed/treatments/')({
   loader: async () => ({

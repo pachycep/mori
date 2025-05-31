@@ -1,4 +1,4 @@
-import type { Reservation, NewReservation } from '@/types/supabase'
+import type { NewReservation, Reservation } from '@/types/supabase'
 
 export const reservationRepository = {
   async create(data: NewReservation): Promise<Reservation> {

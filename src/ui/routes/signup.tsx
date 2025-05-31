@@ -1,7 +1,7 @@
+import { Auth } from '@/ui/routes/~components/auth'
+import { useMutation } from '@/ui/shared/hooks/useMutation'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { createServerFn, useServerFn } from '@tanstack/react-start'
-import { useMutation } from '@/ui/shared/hooks/useMutation'
-import { Auth } from '@/ui/routes/~components/auth'
 import { getSupabaseServerClient } from '../../manager/client/supabase'
 
 export const signupFn = createServerFn({ method: 'POST' })

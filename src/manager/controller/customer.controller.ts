@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
-import { customerService } from '../service/customer.service'
 import { z } from 'zod'
+import { customerService } from '../service/customer.service'
 
 export const getCustomerList = createServerFn().handler(async () => {
   return customerService.getCustomerList()

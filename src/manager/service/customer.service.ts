@@ -1,5 +1,5 @@
-import { customerRepository } from '../repository/customer.repository'
 import type { NewCustomer } from '@/types/supabase'
+import { customerRepository } from '../repository/customer.repository'
 
 export const customerService = {
   async getCustomerList() {

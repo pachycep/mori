@@ -3,8 +3,8 @@ import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { cn } from '../utils/cn'
 import { Button } from './button'
-import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { Calendar } from './calendar'
+import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 interface CalendarInputProps {
   value?: Date

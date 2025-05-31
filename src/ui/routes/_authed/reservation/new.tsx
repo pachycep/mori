@@ -1,10 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { formOptions } from '@tanstack/react-form'
-import { Suspense } from 'react'
 import { getCustomerList } from '@/manager/controller/customer.controller'
 import { createReservation } from '@/manager/controller/reservation.controller'
-import { zodRequiredString } from '@/utils/zod'
 import { useAppForm } from '@/ui/shared/components/form'
+import { zodRequiredString } from '@/utils/zod'
+import { formOptions } from '@tanstack/react-form'
+import { createFileRoute } from '@tanstack/react-router'
+import { Suspense } from 'react'
 
 export const Route = createFileRoute('/_authed/reservation/new')({
   component: RouteComponent,

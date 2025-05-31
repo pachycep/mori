@@ -1,5 +1,5 @@
-import { treatmentRepository } from '../repository/treatment.repository'
 import type { Treatment } from '@/types/supabase'
+import { treatmentRepository } from '../repository/treatment.repository'
 
 export const treatmentService = {
   async getTreatmentList() {

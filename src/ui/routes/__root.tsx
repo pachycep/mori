@@ -1,3 +1,6 @@
+import { getSupabaseServerClient } from '@/manager/client/supabase'
+import appCss from '@/ui/shared/styles/app.css?url'
+import { seo } from '@/ui/shared/utils/seo'
 import {
   HeadContent,
   Outlet,
@@ -8,9 +11,6 @@ import { createServerFn } from '@tanstack/react-start'
 import type * as React from 'react'
 import { DefaultCatchBoundary } from './~components/DefaultCatchBoundary'
 import { NotFound } from './~components/NotFound'
-import appCss from '@/ui/shared/styles/app.css?url'
-import { seo } from '@/ui/shared/utils/seo'
-import { getSupabaseServerClient } from '@/manager/client/supabase'
 import { BottomNavigation } from './~components/bottom-navigation'
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {

@@ -1,5 +1,5 @@
-import { reservationRepository } from '../repository/reservation.repository'
 import type { NewReservation } from '@/types/supabase'
+import { reservationRepository } from '../repository/reservation.repository'
 
 export const reservationService = {
   async createReservation(data: NewReservation) {

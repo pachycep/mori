@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
 import { getReservationList } from '@/manager/controller/reservation.controller'
 import { getTreatmentsByReservation } from '@/manager/controller/treatment.controller'
 import type { Treatment } from '@/types/supabase'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_authed/reservation/$id')({
   loader: async ({ params }) => {

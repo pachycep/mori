@@ -1,6 +1,6 @@
+import { getTreatmentById } from '@/manager/controller/treatment.controller'
 // app/routes/treatments/$id.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { getTreatmentById } from '@/manager/controller/treatment.controller'
 
 export const Route = createFileRoute('/_authed/treatments/$id')({
   loader: async ({ params }) => {
