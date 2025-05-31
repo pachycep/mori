@@ -1,36 +1,61 @@
 import type { Designer } from '@/types/supabase'
+import { getSupabaseServerClient } from '@/manager/client/supabase'
 
 export const designerRepository = {
   async getAll(): Promise<Designer[]> {
-    // TODO: 실제 DB 연동 구현
-    return []
+    const supabase = getSupabaseServerClient()
+    const { data, error } = await supabase.from('designers').select('*')
+    if (error) throw new Error(error.message)
+    return data as Designer[]
   },
 
-  async getById(id: number): Promise<Designer | undefined> {
-    // TODO: 실제 DB 연동 구현
-    return undefined
+  async getById(id: number): Promise<Designer | null> {
+    const supabase = getSupabaseServerClient()
+    const { data, error } = await supabase
+      .from('designers')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle()
+    if (error && error.code !== 'PGRST116') throw new Error(error.message)
+    // PGRST116: no rows returned
+    return data ? (data as Designer) : null
   },
 
   async create(data: Omit<Designer, 'id'>): Promise<Designer> {
-    // TODO: 실제 DB 연동 구현
-    throw new Error('Not implemented')
+    const supabase = getSupabaseServerClient()
+    const { data: inserted, error } = await supabase
+      .from('designers')
+      .insert(data)
+      .select()
+      .single()
+    if (error) throw new Error(error.message)
+    return inserted as Designer
   },
 
   async update(
     id: number,
     data: Partial<Designer>,
   ): Promise<Designer | undefined> {
-    // TODO: 실제 DB 연동 구현
-    return undefined
+    const supabase = getSupabaseServerClient()
+    const { data: updated, error } = await supabase
+      .from('designers')
+      .update(data)
+      .eq('id', id)
+      .select()
+      .single()
+    if (error) throw new Error(error.message)
+    return updated as Designer
   },
 
   async delete(id: number): Promise<boolean> {
-    // TODO: 실제 DB 연동 구현
-    return false
+    const supabase = getSupabaseServerClient()
+    const { error } = await supabase.from('designers').delete().eq('id', id)
+    if (error) throw new Error(error.message)
+    return true
   },
 
   async getServicesByDesignerId(id: number): Promise<string[] | undefined> {
-    // TODO: 실제 DB 연동 구현
+    // 예시: 별도 services 테이블이 있다면 조인 필요, 단순히 designers 테이블에 없다면 null 반환
     return undefined
   },
 }
