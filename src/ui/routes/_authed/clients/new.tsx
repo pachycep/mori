@@ -15,7 +15,7 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/clients/new')({
+export const Route = createFileRoute('/_authed/clients/new')({
   component: RouteComponent,
 })
 

@@ -6,7 +6,7 @@ import { createReservation } from '@/manager/controller/reservation.controller'
 import { zodRequiredString } from '@/utils/zod'
 import { useAppForm } from '@/ui/shared/components/form'
 
-export const Route = createFileRoute('/reservation/new')({
+export const Route = createFileRoute('/_authed/reservation/new')({
   component: RouteComponent,
   loader: async () => ({
     customers: await getCustomerList(),

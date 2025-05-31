@@ -12,7 +12,7 @@ import { Card } from '@/ui/shared/components/card'
 import { ClientTag } from '@/ui/shared/components/client-tag'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/clients/$id')({
+export const Route = createFileRoute('/_authed/clients/$id')({
   component: CustomerDetailPage,
   loader: async ({ params }) => {
     const customerId = Number(params.id)

@@ -2,7 +2,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getTreatmentById } from '@/manager/controller/treatment.controller'
 
-export const Route = createFileRoute('/treatments/$id')({
+export const Route = createFileRoute('/_authed/treatments/$id')({
   loader: async ({ params }) => {
     const treatment = await getTreatmentById({ data: params.id })
 

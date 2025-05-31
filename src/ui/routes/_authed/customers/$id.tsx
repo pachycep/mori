@@ -3,7 +3,7 @@ import { getCustomerList } from '@/manager/controller/customer.controller'
 import { getTreatmentsByCustomerId } from '@/manager/controller/treatment.controller'
 import type { Treatment } from '@/types/supabase'
 
-export const Route = createFileRoute('/customers/$id')({
+export const Route = createFileRoute('/_authed/customers/$id')({
   loader: async ({ params }) => {
     const customers = await getCustomerList()
     const customer = customers.find((c) => c.id === params.id)

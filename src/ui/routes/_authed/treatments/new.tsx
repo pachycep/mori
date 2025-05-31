@@ -5,7 +5,7 @@ import { useAppForm } from '@/ui/shared/components/form'
 import { formOptions } from '@tanstack/react-form'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/treatments/new')({
+export const Route = createFileRoute('/_authed/treatments/new')({
   loader: async () => {
     const id = 1 // TODO: 디자이너 아이디 받아오기
     const clients = await getCustomerList()

@@ -24,7 +24,7 @@ import {
   AvatarImage,
 } from '@/ui/shared/components/avatar'
 
-export const Route = createFileRoute('/treatments/')({
+export const Route = createFileRoute('/_authed/treatments/')({
   loader: async () => ({
     treatments: await getTreatmentList(),
   }),

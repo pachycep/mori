@@ -9,7 +9,7 @@ import { UserInfo } from '@/ui/shared/components/user-info'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/clients/')({
+export const Route = createFileRoute('/_authed/clients/')({
   loader: async () => ({
     customers: await getCustomerList(),
   }),

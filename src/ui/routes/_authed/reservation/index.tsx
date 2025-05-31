@@ -14,7 +14,7 @@ import {
 } from '@/ui/shared/components/calendar/index'
 import { Button } from '@/ui/shared/components/button'
 
-export const Route = createFileRoute('/reservation/')({
+export const Route = createFileRoute('/_authed/reservation/')({
   loader: async () => ({
     reservations: await getReservationList(),
   }),

@@ -1,7 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '../../manager/client/supabase'
-import { Login } from '@/ui/shared/components/Login'
 
 export const loginFn = createServerFn({ method: 'POST' })
   .validator((d: { email: string; password: string }) => d)
@@ -28,7 +27,7 @@ export const Route = createFileRoute('/_authed')({
   },
   errorComponent: ({ error }) => {
     if (error.message === 'Not authenticated') {
-      return <Login />
+      throw redirect({ to: '/login' })
     }
 
     throw error

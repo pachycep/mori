@@ -16,18 +16,18 @@ import { Route as LogoutImport } from './routes/logout'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
-import { Route as TreatmentsIndexImport } from './routes/treatments/index'
-import { Route as ReservationIndexImport } from './routes/reservation/index'
 import { Route as DevIndexImport } from './routes/dev/index'
-import { Route as ClientsIndexImport } from './routes/clients/index'
-import { Route as TreatmentsNewImport } from './routes/treatments/new'
-import { Route as TreatmentsIdImport } from './routes/treatments/$id'
-import { Route as ReservationNewImport } from './routes/reservation/new'
-import { Route as ReservationIdImport } from './routes/reservation/$id'
-import { Route as CustomersIdImport } from './routes/customers/$id'
-import { Route as ClientsNewImport } from './routes/clients/new'
-import { Route as ClientsIdImport } from './routes/clients/$id'
+import { Route as AuthedTreatmentsIndexImport } from './routes/_authed/treatments/index'
+import { Route as AuthedReservationIndexImport } from './routes/_authed/reservation/index'
+import { Route as AuthedClientsIndexImport } from './routes/_authed/clients/index'
+import { Route as AuthedTreatmentsNewImport } from './routes/_authed/treatments/new'
+import { Route as AuthedTreatmentsIdImport } from './routes/_authed/treatments/$id'
+import { Route as AuthedReservationNewImport } from './routes/_authed/reservation/new'
+import { Route as AuthedReservationIdImport } from './routes/_authed/reservation/$id'
 import { Route as AuthedRecordNewImport } from './routes/_authed/record/new'
+import { Route as AuthedCustomersIdImport } from './routes/_authed/customers/$id'
+import { Route as AuthedClientsNewImport } from './routes/_authed/clients/new'
+import { Route as AuthedClientsIdImport } from './routes/_authed/clients/$id'
 
 // Create/Update Routes
 
@@ -60,75 +60,75 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const TreatmentsIndexRoute = TreatmentsIndexImport.update({
-  id: '/treatments/',
-  path: '/treatments/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ReservationIndexRoute = ReservationIndexImport.update({
-  id: '/reservation/',
-  path: '/reservation/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const DevIndexRoute = DevIndexImport.update({
   id: '/dev/',
   path: '/dev/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ClientsIndexRoute = ClientsIndexImport.update({
+const AuthedTreatmentsIndexRoute = AuthedTreatmentsIndexImport.update({
+  id: '/treatments/',
+  path: '/treatments/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedReservationIndexRoute = AuthedReservationIndexImport.update({
+  id: '/reservation/',
+  path: '/reservation/',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedClientsIndexRoute = AuthedClientsIndexImport.update({
   id: '/clients/',
   path: '/clients/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthedRoute,
 } as any)
 
-const TreatmentsNewRoute = TreatmentsNewImport.update({
+const AuthedTreatmentsNewRoute = AuthedTreatmentsNewImport.update({
   id: '/treatments/new',
   path: '/treatments/new',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthedRoute,
 } as any)
 
-const TreatmentsIdRoute = TreatmentsIdImport.update({
+const AuthedTreatmentsIdRoute = AuthedTreatmentsIdImport.update({
   id: '/treatments/$id',
   path: '/treatments/$id',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthedRoute,
 } as any)
 
-const ReservationNewRoute = ReservationNewImport.update({
+const AuthedReservationNewRoute = AuthedReservationNewImport.update({
   id: '/reservation/new',
   path: '/reservation/new',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthedRoute,
 } as any)
 
-const ReservationIdRoute = ReservationIdImport.update({
+const AuthedReservationIdRoute = AuthedReservationIdImport.update({
   id: '/reservation/$id',
   path: '/reservation/$id',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CustomersIdRoute = CustomersIdImport.update({
-  id: '/customers/$id',
-  path: '/customers/$id',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClientsNewRoute = ClientsNewImport.update({
-  id: '/clients/new',
-  path: '/clients/new',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClientsIdRoute = ClientsIdImport.update({
-  id: '/clients/$id',
-  path: '/clients/$id',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 const AuthedRecordNewRoute = AuthedRecordNewImport.update({
   id: '/record/new',
   path: '/record/new',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedCustomersIdRoute = AuthedCustomersIdImport.update({
+  id: '/customers/$id',
+  path: '/customers/$id',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedClientsNewRoute = AuthedClientsNewImport.update({
+  id: '/clients/new',
+  path: '/clients/new',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedClientsIdRoute = AuthedClientsIdImport.update({
+  id: '/clients/$id',
+  path: '/clients/$id',
   getParentRoute: () => AuthedRoute,
 } as any)
 
@@ -171,62 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/clients/$id': {
-      id: '/clients/$id'
-      path: '/clients/$id'
-      fullPath: '/clients/$id'
-      preLoaderRoute: typeof ClientsIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/clients/new': {
-      id: '/clients/new'
-      path: '/clients/new'
-      fullPath: '/clients/new'
-      preLoaderRoute: typeof ClientsNewImport
-      parentRoute: typeof rootRoute
-    }
-    '/customers/$id': {
-      id: '/customers/$id'
-      path: '/customers/$id'
-      fullPath: '/customers/$id'
-      preLoaderRoute: typeof CustomersIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/reservation/$id': {
-      id: '/reservation/$id'
-      path: '/reservation/$id'
-      fullPath: '/reservation/$id'
-      preLoaderRoute: typeof ReservationIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/reservation/new': {
-      id: '/reservation/new'
-      path: '/reservation/new'
-      fullPath: '/reservation/new'
-      preLoaderRoute: typeof ReservationNewImport
-      parentRoute: typeof rootRoute
-    }
-    '/treatments/$id': {
-      id: '/treatments/$id'
-      path: '/treatments/$id'
-      fullPath: '/treatments/$id'
-      preLoaderRoute: typeof TreatmentsIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/treatments/new': {
-      id: '/treatments/new'
-      path: '/treatments/new'
-      fullPath: '/treatments/new'
-      preLoaderRoute: typeof TreatmentsNewImport
-      parentRoute: typeof rootRoute
-    }
-    '/clients/': {
-      id: '/clients/'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof ClientsIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/dev/': {
       id: '/dev/'
       path: '/dev'
@@ -234,19 +178,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DevIndexImport
       parentRoute: typeof rootRoute
     }
-    '/reservation/': {
-      id: '/reservation/'
-      path: '/reservation'
-      fullPath: '/reservation'
-      preLoaderRoute: typeof ReservationIndexImport
-      parentRoute: typeof rootRoute
+    '/_authed/clients/$id': {
+      id: '/_authed/clients/$id'
+      path: '/clients/$id'
+      fullPath: '/clients/$id'
+      preLoaderRoute: typeof AuthedClientsIdImport
+      parentRoute: typeof AuthedImport
     }
-    '/treatments/': {
-      id: '/treatments/'
-      path: '/treatments'
-      fullPath: '/treatments'
-      preLoaderRoute: typeof TreatmentsIndexImport
-      parentRoute: typeof rootRoute
+    '/_authed/clients/new': {
+      id: '/_authed/clients/new'
+      path: '/clients/new'
+      fullPath: '/clients/new'
+      preLoaderRoute: typeof AuthedClientsNewImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/customers/$id': {
+      id: '/_authed/customers/$id'
+      path: '/customers/$id'
+      fullPath: '/customers/$id'
+      preLoaderRoute: typeof AuthedCustomersIdImport
+      parentRoute: typeof AuthedImport
     }
     '/_authed/record/new': {
       id: '/_authed/record/new'
@@ -255,17 +206,86 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedRecordNewImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/reservation/$id': {
+      id: '/_authed/reservation/$id'
+      path: '/reservation/$id'
+      fullPath: '/reservation/$id'
+      preLoaderRoute: typeof AuthedReservationIdImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/reservation/new': {
+      id: '/_authed/reservation/new'
+      path: '/reservation/new'
+      fullPath: '/reservation/new'
+      preLoaderRoute: typeof AuthedReservationNewImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/treatments/$id': {
+      id: '/_authed/treatments/$id'
+      path: '/treatments/$id'
+      fullPath: '/treatments/$id'
+      preLoaderRoute: typeof AuthedTreatmentsIdImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/treatments/new': {
+      id: '/_authed/treatments/new'
+      path: '/treatments/new'
+      fullPath: '/treatments/new'
+      preLoaderRoute: typeof AuthedTreatmentsNewImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/clients/': {
+      id: '/_authed/clients/'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof AuthedClientsIndexImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/reservation/': {
+      id: '/_authed/reservation/'
+      path: '/reservation'
+      fullPath: '/reservation'
+      preLoaderRoute: typeof AuthedReservationIndexImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/treatments/': {
+      id: '/_authed/treatments/'
+      path: '/treatments'
+      fullPath: '/treatments'
+      preLoaderRoute: typeof AuthedTreatmentsIndexImport
+      parentRoute: typeof AuthedImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface AuthedRouteChildren {
+  AuthedClientsIdRoute: typeof AuthedClientsIdRoute
+  AuthedClientsNewRoute: typeof AuthedClientsNewRoute
+  AuthedCustomersIdRoute: typeof AuthedCustomersIdRoute
   AuthedRecordNewRoute: typeof AuthedRecordNewRoute
+  AuthedReservationIdRoute: typeof AuthedReservationIdRoute
+  AuthedReservationNewRoute: typeof AuthedReservationNewRoute
+  AuthedTreatmentsIdRoute: typeof AuthedTreatmentsIdRoute
+  AuthedTreatmentsNewRoute: typeof AuthedTreatmentsNewRoute
+  AuthedClientsIndexRoute: typeof AuthedClientsIndexRoute
+  AuthedReservationIndexRoute: typeof AuthedReservationIndexRoute
+  AuthedTreatmentsIndexRoute: typeof AuthedTreatmentsIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedClientsIdRoute: AuthedClientsIdRoute,
+  AuthedClientsNewRoute: AuthedClientsNewRoute,
+  AuthedCustomersIdRoute: AuthedCustomersIdRoute,
   AuthedRecordNewRoute: AuthedRecordNewRoute,
+  AuthedReservationIdRoute: AuthedReservationIdRoute,
+  AuthedReservationNewRoute: AuthedReservationNewRoute,
+  AuthedTreatmentsIdRoute: AuthedTreatmentsIdRoute,
+  AuthedTreatmentsNewRoute: AuthedTreatmentsNewRoute,
+  AuthedClientsIndexRoute: AuthedClientsIndexRoute,
+  AuthedReservationIndexRoute: AuthedReservationIndexRoute,
+  AuthedTreatmentsIndexRoute: AuthedTreatmentsIndexRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -277,18 +297,18 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
-  '/clients/$id': typeof ClientsIdRoute
-  '/clients/new': typeof ClientsNewRoute
-  '/customers/$id': typeof CustomersIdRoute
-  '/reservation/$id': typeof ReservationIdRoute
-  '/reservation/new': typeof ReservationNewRoute
-  '/treatments/$id': typeof TreatmentsIdRoute
-  '/treatments/new': typeof TreatmentsNewRoute
-  '/clients': typeof ClientsIndexRoute
   '/dev': typeof DevIndexRoute
-  '/reservation': typeof ReservationIndexRoute
-  '/treatments': typeof TreatmentsIndexRoute
+  '/clients/$id': typeof AuthedClientsIdRoute
+  '/clients/new': typeof AuthedClientsNewRoute
+  '/customers/$id': typeof AuthedCustomersIdRoute
   '/record/new': typeof AuthedRecordNewRoute
+  '/reservation/$id': typeof AuthedReservationIdRoute
+  '/reservation/new': typeof AuthedReservationNewRoute
+  '/treatments/$id': typeof AuthedTreatmentsIdRoute
+  '/treatments/new': typeof AuthedTreatmentsNewRoute
+  '/clients': typeof AuthedClientsIndexRoute
+  '/reservation': typeof AuthedReservationIndexRoute
+  '/treatments': typeof AuthedTreatmentsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -297,18 +317,18 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
-  '/clients/$id': typeof ClientsIdRoute
-  '/clients/new': typeof ClientsNewRoute
-  '/customers/$id': typeof CustomersIdRoute
-  '/reservation/$id': typeof ReservationIdRoute
-  '/reservation/new': typeof ReservationNewRoute
-  '/treatments/$id': typeof TreatmentsIdRoute
-  '/treatments/new': typeof TreatmentsNewRoute
-  '/clients': typeof ClientsIndexRoute
   '/dev': typeof DevIndexRoute
-  '/reservation': typeof ReservationIndexRoute
-  '/treatments': typeof TreatmentsIndexRoute
+  '/clients/$id': typeof AuthedClientsIdRoute
+  '/clients/new': typeof AuthedClientsNewRoute
+  '/customers/$id': typeof AuthedCustomersIdRoute
   '/record/new': typeof AuthedRecordNewRoute
+  '/reservation/$id': typeof AuthedReservationIdRoute
+  '/reservation/new': typeof AuthedReservationNewRoute
+  '/treatments/$id': typeof AuthedTreatmentsIdRoute
+  '/treatments/new': typeof AuthedTreatmentsNewRoute
+  '/clients': typeof AuthedClientsIndexRoute
+  '/reservation': typeof AuthedReservationIndexRoute
+  '/treatments': typeof AuthedTreatmentsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -318,18 +338,18 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
-  '/clients/$id': typeof ClientsIdRoute
-  '/clients/new': typeof ClientsNewRoute
-  '/customers/$id': typeof CustomersIdRoute
-  '/reservation/$id': typeof ReservationIdRoute
-  '/reservation/new': typeof ReservationNewRoute
-  '/treatments/$id': typeof TreatmentsIdRoute
-  '/treatments/new': typeof TreatmentsNewRoute
-  '/clients/': typeof ClientsIndexRoute
   '/dev/': typeof DevIndexRoute
-  '/reservation/': typeof ReservationIndexRoute
-  '/treatments/': typeof TreatmentsIndexRoute
+  '/_authed/clients/$id': typeof AuthedClientsIdRoute
+  '/_authed/clients/new': typeof AuthedClientsNewRoute
+  '/_authed/customers/$id': typeof AuthedCustomersIdRoute
   '/_authed/record/new': typeof AuthedRecordNewRoute
+  '/_authed/reservation/$id': typeof AuthedReservationIdRoute
+  '/_authed/reservation/new': typeof AuthedReservationNewRoute
+  '/_authed/treatments/$id': typeof AuthedTreatmentsIdRoute
+  '/_authed/treatments/new': typeof AuthedTreatmentsNewRoute
+  '/_authed/clients/': typeof AuthedClientsIndexRoute
+  '/_authed/reservation/': typeof AuthedReservationIndexRoute
+  '/_authed/treatments/': typeof AuthedTreatmentsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -340,18 +360,18 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
+    | '/dev'
     | '/clients/$id'
     | '/clients/new'
     | '/customers/$id'
+    | '/record/new'
     | '/reservation/$id'
     | '/reservation/new'
     | '/treatments/$id'
     | '/treatments/new'
     | '/clients'
-    | '/dev'
     | '/reservation'
     | '/treatments'
-    | '/record/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -359,18 +379,18 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
+    | '/dev'
     | '/clients/$id'
     | '/clients/new'
     | '/customers/$id'
+    | '/record/new'
     | '/reservation/$id'
     | '/reservation/new'
     | '/treatments/$id'
     | '/treatments/new'
     | '/clients'
-    | '/dev'
     | '/reservation'
     | '/treatments'
-    | '/record/new'
   id:
     | '__root__'
     | '/'
@@ -378,18 +398,18 @@ export interface FileRouteTypes {
     | '/login'
     | '/logout'
     | '/signup'
-    | '/clients/$id'
-    | '/clients/new'
-    | '/customers/$id'
-    | '/reservation/$id'
-    | '/reservation/new'
-    | '/treatments/$id'
-    | '/treatments/new'
-    | '/clients/'
     | '/dev/'
-    | '/reservation/'
-    | '/treatments/'
+    | '/_authed/clients/$id'
+    | '/_authed/clients/new'
+    | '/_authed/customers/$id'
     | '/_authed/record/new'
+    | '/_authed/reservation/$id'
+    | '/_authed/reservation/new'
+    | '/_authed/treatments/$id'
+    | '/_authed/treatments/new'
+    | '/_authed/clients/'
+    | '/_authed/reservation/'
+    | '/_authed/treatments/'
   fileRoutesById: FileRoutesById
 }
 
@@ -399,17 +419,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   LogoutRoute: typeof LogoutRoute
   SignupRoute: typeof SignupRoute
-  ClientsIdRoute: typeof ClientsIdRoute
-  ClientsNewRoute: typeof ClientsNewRoute
-  CustomersIdRoute: typeof CustomersIdRoute
-  ReservationIdRoute: typeof ReservationIdRoute
-  ReservationNewRoute: typeof ReservationNewRoute
-  TreatmentsIdRoute: typeof TreatmentsIdRoute
-  TreatmentsNewRoute: typeof TreatmentsNewRoute
-  ClientsIndexRoute: typeof ClientsIndexRoute
   DevIndexRoute: typeof DevIndexRoute
-  ReservationIndexRoute: typeof ReservationIndexRoute
-  TreatmentsIndexRoute: typeof TreatmentsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -418,17 +428,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   LogoutRoute: LogoutRoute,
   SignupRoute: SignupRoute,
-  ClientsIdRoute: ClientsIdRoute,
-  ClientsNewRoute: ClientsNewRoute,
-  CustomersIdRoute: CustomersIdRoute,
-  ReservationIdRoute: ReservationIdRoute,
-  ReservationNewRoute: ReservationNewRoute,
-  TreatmentsIdRoute: TreatmentsIdRoute,
-  TreatmentsNewRoute: TreatmentsNewRoute,
-  ClientsIndexRoute: ClientsIndexRoute,
   DevIndexRoute: DevIndexRoute,
-  ReservationIndexRoute: ReservationIndexRoute,
-  TreatmentsIndexRoute: TreatmentsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -446,17 +446,7 @@ export const routeTree = rootRoute
         "/login",
         "/logout",
         "/signup",
-        "/clients/$id",
-        "/clients/new",
-        "/customers/$id",
-        "/reservation/$id",
-        "/reservation/new",
-        "/treatments/$id",
-        "/treatments/new",
-        "/clients/",
-        "/dev/",
-        "/reservation/",
-        "/treatments/"
+        "/dev/"
       ]
     },
     "/": {
@@ -465,7 +455,17 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/record/new"
+        "/_authed/clients/$id",
+        "/_authed/clients/new",
+        "/_authed/customers/$id",
+        "/_authed/record/new",
+        "/_authed/reservation/$id",
+        "/_authed/reservation/new",
+        "/_authed/treatments/$id",
+        "/_authed/treatments/new",
+        "/_authed/clients/",
+        "/_authed/reservation/",
+        "/_authed/treatments/"
       ]
     },
     "/login": {
@@ -477,41 +477,51 @@ export const routeTree = rootRoute
     "/signup": {
       "filePath": "signup.tsx"
     },
-    "/clients/$id": {
-      "filePath": "clients/$id.tsx"
-    },
-    "/clients/new": {
-      "filePath": "clients/new.tsx"
-    },
-    "/customers/$id": {
-      "filePath": "customers/$id.tsx"
-    },
-    "/reservation/$id": {
-      "filePath": "reservation/$id.tsx"
-    },
-    "/reservation/new": {
-      "filePath": "reservation/new.tsx"
-    },
-    "/treatments/$id": {
-      "filePath": "treatments/$id.tsx"
-    },
-    "/treatments/new": {
-      "filePath": "treatments/new.tsx"
-    },
-    "/clients/": {
-      "filePath": "clients/index.tsx"
-    },
     "/dev/": {
       "filePath": "dev/index.tsx"
     },
-    "/reservation/": {
-      "filePath": "reservation/index.tsx"
+    "/_authed/clients/$id": {
+      "filePath": "_authed/clients/$id.tsx",
+      "parent": "/_authed"
     },
-    "/treatments/": {
-      "filePath": "treatments/index.tsx"
+    "/_authed/clients/new": {
+      "filePath": "_authed/clients/new.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/customers/$id": {
+      "filePath": "_authed/customers/$id.tsx",
+      "parent": "/_authed"
     },
     "/_authed/record/new": {
       "filePath": "_authed/record/new.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/reservation/$id": {
+      "filePath": "_authed/reservation/$id.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/reservation/new": {
+      "filePath": "_authed/reservation/new.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/treatments/$id": {
+      "filePath": "_authed/treatments/$id.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/treatments/new": {
+      "filePath": "_authed/treatments/new.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/clients/": {
+      "filePath": "_authed/clients/index.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/reservation/": {
+      "filePath": "_authed/reservation/index.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/treatments/": {
+      "filePath": "_authed/treatments/index.tsx",
       "parent": "/_authed"
     }
   }

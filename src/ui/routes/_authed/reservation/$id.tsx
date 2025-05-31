@@ -3,7 +3,7 @@ import { getReservationList } from '@/manager/controller/reservation.controller'
 import { getTreatmentsByReservation } from '@/manager/controller/treatment.controller'
 import type { Treatment } from '@/types/supabase'
 
-export const Route = createFileRoute('/reservation/$id')({
+export const Route = createFileRoute('/_authed/reservation/$id')({
   loader: async ({ params }) => {
     // FIXME: @dmdm 0510 상세 API로 수정
     const all = await getReservationList()
