@@ -3,14 +3,14 @@ import { getSupabaseServerClient } from '@/manager/client/supabase'
 
 export const treatmentRepository = {
   async getAll(): Promise<Treatment[]> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase.from('treatments').select('*')
     if (error) throw new Error(error.message)
     return data as Treatment[]
   },
 
   async create(treatment: NewTreatment): Promise<Treatment> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data: inserted, error } = await supabase
       .from('treatments')
       .insert(treatment)
@@ -21,7 +21,7 @@ export const treatmentRepository = {
   },
 
   async getByReservation(reservationId: string): Promise<Treatment | null> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase
       .from('treatments')
       .select('*')
@@ -32,7 +32,7 @@ export const treatmentRepository = {
   },
 
   async getById(id: string): Promise<Treatment | null> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase
       .from('treatments')
       .select('*')
@@ -43,7 +43,7 @@ export const treatmentRepository = {
   },
 
   async getByCustomerId(customerId: number): Promise<Treatment[]> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase
       .from('treatments')
       .select('*')

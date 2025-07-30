@@ -15,6 +15,12 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
     select: (state) => state.id === rootRouteId,
   })
 
+  // 리다이렉트 에러인 경우 실제로 리다이렉트 수행
+  if (error && typeof error === 'object' && 'isRedirect' in error && error.isRedirect) {
+    window.location.href = (error as any).to
+    return null
+  }
+
   console.error(error)
 
   return (

@@ -10,9 +10,15 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_authed/clients/')({
-  loader: async () => ({
-    customers: await getCustomerList(),
-  }),
+  loader: async () => {
+    try {
+      const customers = await getCustomerList()
+      return { customers }
+    } catch (error) {
+      console.error('Failed to load customers:', error)
+      return { customers: [] }
+    }
+  },
   component: ClientsPage,
 })
 

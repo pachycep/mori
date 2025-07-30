@@ -8,9 +8,15 @@ import { Suspense } from 'react'
 
 export const Route = createFileRoute('/_authed/reservation/new')({
   component: RouteComponent,
-  loader: async () => ({
-    customers: await getCustomerList(),
-  }),
+  loader: async () => {
+    try {
+      const customers = await getCustomerList()
+      return { customers }
+    } catch (error) {
+      console.error('Failed to load customers:', error)
+      return { customers: [] }
+    }
+  },
 })
 
 function RouteComponent() {
