@@ -1,9 +1,13 @@
 # 모리 (Mori) - 미용실 예약 관리 시스템
 
 ## 소개
+
 모리는 미용실 예약을 효율적으로 관리할 수 있는 웹 애플리케이션입니다. 고객 예약 관리, 스케줄 확인, 디자이너 관리 등의 기능을 제공합니다.
+살짝 틈새시장 파고드는 느낌...
+수첩으로 일정관리하시는 사장님들의 온라인 수첩 느낌
 
 ## 기술 스택
+
 - Frontend: React, TanStack Router, TanStack Form
 - Backend: Supabase
 - UI: Tailwind CSS, shadcn/ui
@@ -12,22 +16,26 @@
 ## 시작하기
 
 ### 필수 조건
+
 - Node.js 18 이상
 - pnpm
 
 ### 설치
+
 ```bash
 # 의존성 설치
 pnpm install
 ```
 
 ### 개발 서버 실행
+
 ```bash
 # 개발 서버 시작
 pnpm dev
 ```
 
 ## 주요 기능
+
 - 예약 관리
   - 예약 생성/수정/삭제
   - 캘린더 뷰로 예약 확인
@@ -40,9 +48,10 @@ pnpm dev
   - 담당 고객 관리
 
 ## 프로젝트 구조
+
 ```
 src/
-├── ui/              # client 
+├── ui/              # client
 ├── manager/         # server
 │   ├── controller/  # API 엔드포인트 및 요청 처리
 │   ├── service/     # 비즈니스 로직 처리
