@@ -3,7 +3,7 @@ import { getSupabaseServerClient } from '@/manager/client/supabase'
 
 export const reservationRepository = {
   async create(data: NewReservation): Promise<Reservation> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data: inserted, error } = await supabase
       .from('reservations')
       .insert(data)
@@ -14,7 +14,7 @@ export const reservationRepository = {
   },
 
   async getAll(): Promise<Reservation[]> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase.from('reservations').select('*')
     if (error) throw new Error(error.message)
     return data as Reservation[]

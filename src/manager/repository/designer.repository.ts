@@ -3,14 +3,14 @@ import { getSupabaseServerClient } from '@/manager/client/supabase'
 
 export const designerRepository = {
   async getAll(): Promise<Designer[]> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase.from('designers').select('*')
     if (error) throw new Error(error.message)
     return data as Designer[]
   },
 
   async getById(id: number): Promise<Designer | null> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data, error } = await supabase
       .from('designers')
       .select('*')
@@ -22,7 +22,7 @@ export const designerRepository = {
   },
 
   async create(data: Omit<Designer, 'id'>): Promise<Designer> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data: inserted, error } = await supabase
       .from('designers')
       .insert(data)
@@ -36,7 +36,7 @@ export const designerRepository = {
     id: number,
     data: Partial<Designer>,
   ): Promise<Designer | undefined> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { data: updated, error } = await supabase
       .from('designers')
       .update(data)
@@ -48,7 +48,7 @@ export const designerRepository = {
   },
 
   async delete(id: number): Promise<boolean> {
-    const supabase = getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient()
     const { error } = await supabase.from('designers').delete().eq('id', id)
     if (error) throw new Error(error.message)
     return true

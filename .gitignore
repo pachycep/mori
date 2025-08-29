@@ -10,7 +10,8 @@ yarn.lock
 .vercel
 .output
 .vinxi
-
+CLAUDE.md
+.claude
 /build/
 /api/
 /server/build

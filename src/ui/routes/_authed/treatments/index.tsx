@@ -25,9 +25,15 @@ import { format } from 'date-fns'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_authed/treatments/')({
-  loader: async () => ({
-    treatments: await getTreatmentList(),
-  }),
+  loader: async () => {
+    try {
+      const treatments = await getTreatmentList()
+      return { treatments }
+    } catch (error) {
+      console.error('Failed to load treatments:', error)
+      return { treatments: [] }
+    }
+  },
   component: TreatmentPage,
 })
 
@@ -127,9 +133,19 @@ function TreatmentCard({
   treatment: Treatment
   onClick: (treatment: Treatment) => void
 }) {
-  const { customer, createdAt, services, styleTags, afterImageUrl } = treatment
+  // 실제 데이터베이스 스키마에 맞게 수정
+  const {
+    customer_id,
+    created_at,
+    services,
+    style_tags,
+    after_image_url,
+    name,
+    memo,
+  } = treatment
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'No date'
     const date = new Date(dateString)
     return format(date, 'MMM d, yyyy')
   }
@@ -141,46 +157,72 @@ function TreatmentCard({
     >
       <div className="flex">
         <div className="w-24 h-24 bg-neutral-100 overflow-hidden">
-          <img
-            src={afterImageUrl}
-            alt={`${customer.name}'s hairstyle`}
-            className="w-full h-full object-cover object-top"
-          />
+          {after_image_url ? (
+            <img
+              src={after_image_url}
+              alt={`Treatment ${name}`}
+              className="w-full h-full object-cover object-top"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-neutral-400">
+              <i className="fa-solid fa-image text-2xl" />
+            </div>
+          )}
         </div>
         <div className="flex-1 p-3">
           <div className="flex justify-between items-start mb-1">
-            <div className="font-medium">{customer.name}</div>
+            <div className="font-medium">{name}</div>
             <div className="text-xs text-neutral-500">
-              {formatDate(createdAt)}
+              {formatDate(created_at)}
             </div>
           </div>
           <div className="flex flex-wrap gap-1 mb-2">
-            {services.map((service, idx) => (
-              <span key={idx} className="text-xs text-neutral-600">
-                {idx > 0 && <span className="mx-1">•</span>}
-                {service}
-              </span>
-            ))}
+            {services && services.length > 0 ? (
+              services.map((service, idx) => (
+                <span key={idx} className="text-xs text-neutral-600">
+                  {idx > 0 && <span className="mx-1">•</span>}
+                  {service}
+                </span>
+              ))
+            ) : (
+              <span className="text-xs text-neutral-400">No services</span>
+            )}
           </div>
           <div className="flex flex-wrap gap-1">
-            {styleTags.slice(0, 3).map((tag, idx) => (
+            {style_tags && style_tags.length > 0 ? (
+              <>
+                {style_tags.slice(0, 3).map((tag, idx) => (
+                  <Badge
+                    key={idx}
+                    variant="outline"
+                    className="text-xs px-2 py-0 bg-amber-50 text-amber-700 border-amber-200"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+                {style_tags.length > 3 && (
+                  <Badge
+                    variant="outline"
+                    className="text-xs px-2 py-0 bg-neutral-100 text-neutral-600 border-neutral-200"
+                  >
+                    +{style_tags.length - 3}
+                  </Badge>
+                )}
+              </>
+            ) : (
               <Badge
-                key={idx}
                 variant="outline"
-                className="text-xs px-2 py-0 bg-amber-50 text-amber-700 border-amber-200"
+                className="text-xs px-2 py-0 bg-neutral-100 text-neutral-400 border-neutral-200"
               >
-                {tag}
-              </Badge>
-            ))}
-            {styleTags.length > 3 && (
-              <Badge
-                variant="outline"
-                className="text-xs px-2 py-0 bg-neutral-100 text-neutral-600 border-neutral-200"
-              >
-                +{styleTags.length - 3}
+                No tags
               </Badge>
             )}
           </div>
+          {customer_id && (
+            <div className="text-xs text-neutral-500 mt-1">
+              Customer ID: {customer_id}
+            </div>
+          )}
         </div>
       </div>
     </Card>
@@ -200,17 +242,20 @@ function TreatmentDetailDialog({
 }) {
   if (!treatment) return null
 
+  // 실제 데이터베이스 스키마에 맞게 수정
   const {
-    customer,
-    createdAt,
+    customer_id,
+    created_at,
     services,
-    styleTags,
-    afterImageUrl,
+    style_tags,
+    after_image_url,
     memo,
-    beforeImageUrl,
+    before_image_url,
+    name,
   } = treatment
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'No date'
     const date = new Date(dateString)
     return format(date, 'MMM d, yyyy')
   }
@@ -238,13 +283,13 @@ function TreatmentDetailDialog({
         <DialogHeader>
           <DialogTitle>Treatment Details</DialogTitle>
           <DialogDescription className="text-neutral-500">
-            {formatDate(createdAt)} • {customer.name}
+            {formatDate(created_at)} • {name}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="pr-4 max-h-[calc(90vh-180px)]">
           <Tabs defaultValue="after" className="w-full">
             <TabsList className="grid grid-cols-2 mb-4">
-              {beforeImageUrl && (
+              {before_image_url && (
                 <>
                   <TabsTrigger value="before" className="!rounded-button">
                     Before
@@ -254,7 +299,7 @@ function TreatmentDetailDialog({
                   </TabsTrigger>
                 </>
               )}
-              {!beforeImageUrl && (
+              {!before_image_url && (
                 <TabsTrigger
                   value="after"
                   className="col-span-2 !rounded-button"
@@ -263,11 +308,11 @@ function TreatmentDetailDialog({
                 </TabsTrigger>
               )}
             </TabsList>
-            {beforeImageUrl && (
+            {before_image_url && (
               <TabsContent value="before" className="mt-0">
                 <div className="rounded-lg overflow-hidden bg-neutral-100 mb-4">
                   <img
-                    src={beforeImageUrl}
+                    src={before_image_url}
                     alt="Before treatment"
                     className="w-full h-auto object-cover"
                   />
@@ -276,11 +321,17 @@ function TreatmentDetailDialog({
             )}
             <TabsContent value="after" className="mt-0">
               <div className="rounded-lg overflow-hidden bg-neutral-100 mb-4">
-                <img
-                  src={afterImageUrl}
-                  alt="After treatment"
-                  className="w-full h-auto object-cover"
-                />
+                {after_image_url ? (
+                  <img
+                    src={after_image_url}
+                    alt="After treatment"
+                    className="w-full h-auto object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-48 flex items-center justify-center text-neutral-400">
+                    <i className="fa-solid fa-image text-4xl" />
+                  </div>
+                )}
               </div>
             </TabsContent>
           </Tabs>
@@ -290,15 +341,19 @@ function TreatmentDetailDialog({
                 Services
               </h3>
               <div className="flex flex-wrap gap-2">
-                {services.map((service) => (
-                  <Badge
-                    key={service}
-                    className="bg-neutral-100 text-neutral-700 px-3 py-1"
-                  >
-                    <i className={`${getServiceIcon(service)} mr-2`} />
-                    {service}
-                  </Badge>
-                ))}
+                {services && services.length > 0 ? (
+                  services.map((service) => (
+                    <Badge
+                      key={service}
+                      className="bg-neutral-100 text-neutral-700 px-3 py-1"
+                    >
+                      <i className={`${getServiceIcon(service)} mr-2`} />
+                      {service}
+                    </Badge>
+                  ))
+                ) : (
+                  <span className="text-neutral-400">No services</span>
+                )}
               </div>
             </div>
             <div>
@@ -306,15 +361,19 @@ function TreatmentDetailDialog({
                 Style Tags
               </h3>
               <div className="flex flex-wrap gap-2">
-                {styleTags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="outline"
-                    className="bg-amber-50 text-amber-700 border-amber-200 px-3 py-1"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
+                {style_tags && style_tags.length > 0 ? (
+                  style_tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="bg-amber-50 text-amber-700 border-amber-200 px-3 py-1"
+                    >
+                      {tag}
+                    </Badge>
+                  ))
+                ) : (
+                  <span className="text-neutral-400">No tags</span>
+                )}
               </div>
             </div>
             <div>
@@ -322,27 +381,18 @@ function TreatmentDetailDialog({
                 Memo
               </h3>
               <div className="bg-neutral-50 p-3 rounded-lg text-neutral-700 text-sm">
-                {memo}
+                {memo || 'No memo'}
               </div>
             </div>
             <div>
               <h3 className="text-sm font-medium text-neutral-500 mb-2">
-                Client
+                Customer
               </h3>
               <div className="flex items-center p-3 bg-neutral-50 rounded-lg">
-                <Avatar className="h-12 w-12 mr-3">
-                  <AvatarImage src={customer.imageUrl} alt={customer.name} />
-                  <AvatarFallback>
-                    {customer.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </AvatarFallback>
-                </Avatar>
                 <div>
-                  <div className="font-medium">{customer.name}</div>
+                  <div className="font-medium">Customer ID: {customer_id || 'Unknown'}</div>
                   <div className="text-sm text-neutral-500">
-                    {customer.phone}
+                    Treatment: {name}
                   </div>
                 </div>
               </div>
